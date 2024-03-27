@@ -25,8 +25,6 @@ public class Fine implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "fec_multa")
     Date fecMulta; //Fecha en la que se pone la multa
-    @Column(name = "evid_multa", length = 35)
-    String evidMulta; //evidencia de la multa
     @Column(name = "val_multa", nullable = false)
     int valMulta; //Valor a pagar la multa
     @Temporal(TemporalType.TIMESTAMP)

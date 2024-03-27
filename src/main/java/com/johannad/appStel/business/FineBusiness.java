@@ -61,7 +61,6 @@ public class FineBusiness {
 
             fineDto.setTipoMulta(fine.getTipoMulta());
             fineDto.setFecMulta(fine.getFecMulta());
-            fineDto.setEvidMulta(fine.getEvidMulta());
             fineDto.setValMulta(fine.getValMulta());
             fineDto.setFpagMulta(fine.getFpagMulta());
             fineDtoList.add(fineDto);
@@ -74,7 +73,6 @@ public class FineBusiness {
         Fine fine = new Fine();
         fine.setTipoMulta(fineDto.getTipoMulta());
         fine.setFecMulta(fineDto.getFecMulta());
-        fine.setEvidMulta(fineDto.getEvidMulta());
         fine.setValMulta(fineDto.getValMulta());
         fine.setFpagMulta(fineDto.getFpagMulta());
 
@@ -107,7 +105,6 @@ public class FineBusiness {
         createdFineDto.setId(createdFine.getId());
         createdFineDto.setTipoMulta(createdFine.getTipoMulta());
         createdFineDto.setFecMulta(createdFine.getFecMulta());
-        createdFineDto.setEvidMulta(createdFine.getEvidMulta());
         createdFineDto.setValMulta(createdFine.getValMulta());
         createdFineDto.setFpagMulta(createdFine.getFpagMulta());
 
@@ -145,7 +142,6 @@ public class FineBusiness {
 
         existingFine.setTipoMulta(fineDto.getTipoMulta());
         existingFine.setFecMulta(fineDto.getFecMulta());
-        existingFine.setEvidMulta(fineDto.getEvidMulta());
         existingFine.setValMulta(fineDto.getValMulta());
         existingFine.setFpagMulta(fineDto.getFpagMulta());
 

@@ -14,7 +14,6 @@ public class FineDto {
     private int id;
     private String tipoMulta;
     private Date fecMulta;
-    private String evidMulta;
     private int valMulta;
     private Date fpagMulta;
     @JsonIgnoreProperties({"resident"})
