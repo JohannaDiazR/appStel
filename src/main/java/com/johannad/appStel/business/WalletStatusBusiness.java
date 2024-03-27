@@ -58,8 +58,6 @@ public class WalletStatusBusiness {
                 walletStatusDto.setWorker(workerDto);
             }
 
-
-            walletStatusDto.setDocestcartera(walletStatus.getDocestcartera());
             walletStatusDto.setEstcartera(walletStatus.getEstcartera());
             walletStatusDto.setTaccestcartera(walletStatus.getTaccestcartera());
             walletStatusDto.setNotiestcartera(walletStatus.getNotiestcartera());
@@ -70,7 +68,6 @@ public class WalletStatusBusiness {
     //POST
     public WalletStatusDto create(WalletStatusDto walletStatusDto) throws Exception {
         WalletStatus walletStatus = new WalletStatus();
-        walletStatus.setDocestcartera(walletStatusDto.getDocestcartera());
         walletStatus.setEstcartera(walletStatusDto.getEstcartera());
         walletStatus.setTaccestcartera(walletStatusDto.getTaccestcartera());
         walletStatus.setNotiestcartera(walletStatusDto.getNotiestcartera());
@@ -101,7 +98,6 @@ public class WalletStatusBusiness {
         WalletStatus createdWalletStatus = walletStatusService.create(walletStatus);
         WalletStatusDto createdWalletStatusDto = new WalletStatusDto();
         createdWalletStatusDto.setId(createdWalletStatus.getId());
-        createdWalletStatusDto.setDocestcartera(createdWalletStatus.getDocestcartera());
         createdWalletStatusDto.setEstcartera(createdWalletStatus.getEstcartera());
         createdWalletStatusDto.setTaccestcartera(createdWalletStatus.getTaccestcartera());
         createdWalletStatusDto.setNotiestcartera(createdWalletStatus.getNotiestcartera());
@@ -139,7 +135,6 @@ public class WalletStatusBusiness {
             throw new Exception("WalletStatus not found");
         }
 
-        existingWalletStatus.setDocestcartera(walletStatusDto.getDocestcartera());
         existingWalletStatus.setEstcartera(walletStatusDto.getEstcartera());
         existingWalletStatus.setTaccestcartera(walletStatusDto.getTaccestcartera());
         existingWalletStatus.setNotiestcartera(walletStatusDto.getNotiestcartera());

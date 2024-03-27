@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class WalletStatusDto {
     private int id;
-    private String docestcartera;
     private String estcartera;
     private String taccestcartera;
     private String notiestcartera;

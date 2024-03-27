@@ -20,8 +20,6 @@ public class WalletStatus implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY )
     int id;
-    @Column(name = "docest_cartera", length = 50)
-    String docestcartera; //documento del estado //paz y salvo/acuerdo de pago
     @Column(name = "est_cartera", length = 30)
     String estcartera; //estado de cartera mora//paz y salvo
     @Column(name = "tacc_estcartera", length = 20)
