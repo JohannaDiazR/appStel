@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-03-2024 a las 03:15:52
+-- Tiempo de generación: 27-03-2024 a las 04:01:19
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -92,44 +92,6 @@ INSERT INTO `tbl_correspondencia` (`id`, `tipo_correspondencia`, `frec_correspod
 (7, 'Paquete', '2024-03-15 09:30:00', 'Entregado', '2024-03-15 13:20:00', 3),
 (8, 'Cartilla Asamblea', '2024-03-15 09:30:00', 'Entregado', '2024-03-15 13:20:00', 3),
 (9, 'Paquete chileno', '2024-02-18 09:30:00', 'Entregado', '2024-03-15 13:20:00', 3);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `tbl_docsadmin`
---
-
-CREATE TABLE `tbl_docsadmin` (
-  `id` int(11) NOT NULL,
-  `class_docsadmin` varchar(30) DEFAULT NULL,
-  `peti_docsadmin` varchar(30) DEFAULT NULL,
-  `fkid_trabajador` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `tbl_docsadmin`
---
-
-INSERT INTO `tbl_docsadmin` (`id`, `class_docsadmin`, `peti_docsadmin`, `fkid_trabajador`) VALUES
-(1, 'Presupuesto', '2023 Diciembre', 1),
-(2, 'Balance', 'diciembre 2024', 1),
-(3, 'Presupuesto', '2023 Agosto', 1),
-(4, 'Poliza', '2024 DIciembre', 1),
-(5, 'Demanda', '2025 Agosto', 1),
-(6, 'Acta', '2022 Agosto', 1),
-(7, 'Presupuesto', '2029 Agosto', 1),
-(8, 'Acta', '2030 Agosto', 1),
-(9, 'Rendición de cuentas', '2023 Diciembre', 1),
-(10, 'acta', 'diciembre 2022', 1),
-(11, 'Estados Financieros', '2024 Diciembre', 1),
-(12, 'Presupuesto', '2024 Enero', 1),
-(13, 'Presupuesto', '2024 Marzo', 1),
-(14, 'Rendicion de cuentas', '2024 Diciembre', 1),
-(15, 'Estado financiero', '2023 Junio', 1),
-(16, 'Estado financiero', '2023 Junio', 1),
-(17, 'Estado financiero', '2023 Junio', 1),
-(18, 'Estado financiero', '2023 Junio', 1),
-(19, 'Convocatoria', '2023 Junio', 1);
 
 -- --------------------------------------------------------
 
@@ -439,7 +401,6 @@ CREATE TABLE `tbl_multa` (
   `id` int(11) NOT NULL,
   `tipo_multa` varchar(30) DEFAULT NULL,
   `fec_multa` datetime DEFAULT NULL,
-  `evid_multa` varchar(35) DEFAULT NULL,
   `val_multa` int(11) NOT NULL,
   `fpag_multa` datetime DEFAULT NULL,
   `fkid_inmueble` int(11) DEFAULT NULL,
@@ -450,11 +411,11 @@ CREATE TABLE `tbl_multa` (
 -- Volcado de datos para la tabla `tbl_multa`
 --
 
-INSERT INTO `tbl_multa` (`id`, `tipo_multa`, `fec_multa`, `evid_multa`, `val_multa`, `fpag_multa`, `fkid_inmueble`, `fkid_trabajador`) VALUES
-(1, 'Estacionamiento indebido', '2023-01-10 22:00:00', 'Multa.pdf', 250000, '2023-02-10 10:15:00', 3, 3),
-(2, 'Ruido excesivo', '2023-11-11 00:15:00', 'Multa.pdf', 100000, '2024-02-10 13:18:00', 4, 3),
-(3, 'Mascota sin correa', '2023-12-11 00:15:00', 'Multa.pdf', 100000, '2024-02-10 13:18:00', 1, 3),
-(4, 'Ruido excesivo', '2023-12-11 00:15:00', 'Multa.pdf', 100000, NULL, NULL, NULL);
+INSERT INTO `tbl_multa` (`id`, `tipo_multa`, `fec_multa`, `val_multa`, `fpag_multa`, `fkid_inmueble`, `fkid_trabajador`) VALUES
+(1, 'Estacionamiento indebido', '2023-01-10 22:00:00', 250000, '2023-02-10 10:15:00', 3, 3),
+(2, 'Ruido excesivo', '2023-11-11 00:15:00', 100000, '2024-02-10 13:18:00', 4, 3),
+(3, 'Mascota sin correa', '2023-12-11 00:15:00', 100000, '2024-02-10 13:18:00', 1, 3),
+(4, 'Ruido excesivo', '2023-12-11 00:15:00', 100000, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -610,13 +571,22 @@ CREATE TABLE `tbl_usuarios` (
 --
 
 INSERT INTO `tbl_usuarios` (`id`, `usuario`, `contrasena`, `fkid_rol`) VALUES
-(1, 'pabloguzman@gmail.com', 'P@-Gu7m4n.3!', 1),
+(1, 'pabloguz@gmail.com', 'P@-Gu7m4n.3!', 1),
 (2, 'danmartinez@gmail.com', 'D4n.!123', 2),
-(3, 'bentedder27@gmail.com', 'T3d-de!37*8/', 3),
+(3, 'bentedder@gmail.com', 'T3d-de!37*8/', 3),
 (4, 'borjavilaseca@gmail.com', 'B0!r2!/1$-3a', 4),
-(5, 'jaimero@gmail.com', 'J4im3ro', 1),
+(5, 'jaimeroque@gmail.com', 'J4im3ro', 1),
 (6, 'bencasas@gmail.com', 'b3nc4s!', 1),
-(7, 'laural@gmail.com', 'l4ural@', 1);
+(7, 'lauraro@gmail.com', 'l4ural@', 1),
+(9, 'danielrodriguez@gmail.com', 'D@NiR0*', NULL),
+(11, 'felipediaz@gmail.com', 'F3l!pe@d1a', NULL),
+(13, 'claregomez@gmail.com', 'cl4r1G@m', NULL),
+(14, 'ADSDF', 'ADF', NULL),
+(15, 'SDAFSDFFGADFSG131321321', 'ADS', NULL),
+(17, '123456', 'dfssad', NULL),
+(20, 'a1465@2131asdaa', 'sdfdf', NULL),
+(21, '148wddsf', 'sdf', NULL),
+(23, '22222', '1111', NULL);
 
 -- --------------------------------------------------------
 
@@ -671,13 +641,6 @@ ALTER TABLE `property_correspondence`
 ALTER TABLE `tbl_correspondencia`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FKd08be0l3jmxjjbr9rnlj8sjmp` (`fkid_trabajador`);
-
---
--- Indices de la tabla `tbl_docsadmin`
---
-ALTER TABLE `tbl_docsadmin`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `FKdxli6u04j6u52q0twobiyslt` (`fkid_trabajador`);
 
 --
 -- Indices de la tabla `tbl_estcartera`
@@ -762,12 +725,6 @@ ALTER TABLE `tbl_correspondencia`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT de la tabla `tbl_docsadmin`
---
-ALTER TABLE `tbl_docsadmin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
-
---
 -- AUTO_INCREMENT de la tabla `tbl_estcartera`
 --
 ALTER TABLE `tbl_estcartera`
@@ -819,7 +776,7 @@ ALTER TABLE `tbl_trabajador`
 -- AUTO_INCREMENT de la tabla `tbl_usuarios`
 --
 ALTER TABLE `tbl_usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_visitantes`
@@ -850,12 +807,6 @@ ALTER TABLE `property_correspondence`
 --
 ALTER TABLE `tbl_correspondencia`
   ADD CONSTRAINT `FKd08be0l3jmxjjbr9rnlj8sjmp` FOREIGN KEY (`fkid_trabajador`) REFERENCES `tbl_trabajador` (`id`);
-
---
--- Filtros para la tabla `tbl_docsadmin`
---
-ALTER TABLE `tbl_docsadmin`
-  ADD CONSTRAINT `FKdxli6u04j6u52q0twobiyslt` FOREIGN KEY (`fkid_trabajador`) REFERENCES `tbl_trabajador` (`id`);
 
 --
 -- Filtros para la tabla `tbl_estcartera`
