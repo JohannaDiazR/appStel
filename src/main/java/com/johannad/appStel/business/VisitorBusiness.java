@@ -45,7 +45,6 @@ public class VisitorBusiness {
                 workerDto.setCelTrabajador(worker.getCelTrabajador());
                 workerDto.setEmaTrabajador(worker.getEmaTrabajador());
                 workerDto.setTpcoTrabajador(worker.getTpcoTrabajador());
-                workerDto.setConTrabajador(worker.getConTrabajador());
                 workerDto.setCargTrabajador(worker.getCargTrabajador());
                 workerDto.setEmpTrabajador(worker.getEmpTrabajador());
                 visitorDto.setWorker(workerDto);
@@ -102,7 +101,6 @@ public class VisitorBusiness {
             worker.setCelTrabajador(workerDto.getCelTrabajador());
             worker.setEmaTrabajador(workerDto.getEmaTrabajador());
             worker.setTpcoTrabajador(workerDto.getTpcoTrabajador());
-            worker.setConTrabajador(workerDto.getConTrabajador());
             worker.setCargTrabajador(workerDto.getCargTrabajador());
             worker.setEmpTrabajador(workerDto.getEmpTrabajador());
             visitor.setWorker(worker);
@@ -147,7 +145,6 @@ public class VisitorBusiness {
             workerDto.setCelTrabajador(worker.getCelTrabajador());
             workerDto.setEmaTrabajador(worker.getEmaTrabajador());
             workerDto.setTpcoTrabajador(worker.getTpcoTrabajador());
-            workerDto.setConTrabajador(worker.getConTrabajador());
             workerDto.setCargTrabajador(worker.getCargTrabajador());
             workerDto.setEmpTrabajador(worker.getEmpTrabajador());
             createdVisitorDto.setWorker(workerDto);
@@ -200,7 +197,6 @@ public class VisitorBusiness {
             existingWorker.setCelTrabajador(workerDto.getCelTrabajador());
             existingWorker.setEmaTrabajador(workerDto.getEmaTrabajador());
             existingWorker.setTpcoTrabajador(workerDto.getTpcoTrabajador());
-            existingWorker.setConTrabajador(workerDto.getConTrabajador());
             existingWorker.setCargTrabajador(workerDto.getCargTrabajador());
             existingWorker.setEmpTrabajador(workerDto.getEmpTrabajador());
 

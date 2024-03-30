@@ -39,7 +39,6 @@ public class CorrespondenceBusiness {
                 workerDto.setCelTrabajador(worker.getCelTrabajador());
                 workerDto.setEmaTrabajador(worker.getEmaTrabajador());
                 workerDto.setTpcoTrabajador(worker.getTpcoTrabajador());
-                workerDto.setConTrabajador(worker.getConTrabajador());
                 workerDto.setCargTrabajador(worker.getCargTrabajador());
                 workerDto.setEmpTrabajador(worker.getEmpTrabajador());
                 correspondenceDto.setWorker(workerDto);
@@ -71,7 +70,6 @@ public class CorrespondenceBusiness {
             worker.setCelTrabajador(workerDto.getCelTrabajador());
             worker.setEmaTrabajador(workerDto.getEmaTrabajador());
             worker.setTpcoTrabajador(workerDto.getTpcoTrabajador());
-            worker.setConTrabajador(workerDto.getConTrabajador());
             worker.setCargTrabajador(workerDto.getCargTrabajador());
             worker.setEmpTrabajador(workerDto.getEmpTrabajador());
             correspondence.setWorker(worker);
@@ -94,7 +92,6 @@ public class CorrespondenceBusiness {
             workerDto.setCelTrabajador(worker.getCelTrabajador());
             workerDto.setEmaTrabajador(worker.getEmaTrabajador());
             workerDto.setTpcoTrabajador(worker.getTpcoTrabajador());
-            workerDto.setConTrabajador(worker.getConTrabajador());
             workerDto.setCargTrabajador(worker.getCargTrabajador());
             workerDto.setEmpTrabajador(worker.getEmpTrabajador());
             createdCorrespondenceDto.setWorker(workerDto);
@@ -127,7 +124,6 @@ public class CorrespondenceBusiness {
             existingWorker.setCelTrabajador(workerDto.getCelTrabajador());
             existingWorker.setEmaTrabajador(workerDto.getEmaTrabajador());
             existingWorker.setTpcoTrabajador(workerDto.getTpcoTrabajador());
-            existingWorker.setConTrabajador(workerDto.getConTrabajador());
             existingWorker.setCargTrabajador(workerDto.getCargTrabajador());
             existingWorker.setEmpTrabajador(workerDto.getEmpTrabajador());
 

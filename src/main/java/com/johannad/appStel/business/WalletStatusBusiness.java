@@ -52,7 +52,6 @@ public class WalletStatusBusiness {
                 workerDto.setCelTrabajador(worker.getCelTrabajador());
                 workerDto.setEmaTrabajador(worker.getEmaTrabajador());
                 workerDto.setTpcoTrabajador(worker.getTpcoTrabajador());
-                workerDto.setConTrabajador(worker.getConTrabajador());
                 workerDto.setCargTrabajador(worker.getCargTrabajador());
                 workerDto.setEmpTrabajador(worker.getEmpTrabajador());
                 walletStatusDto.setWorker(workerDto);
@@ -89,7 +88,6 @@ public class WalletStatusBusiness {
             worker.setCelTrabajador(workerDto.getCelTrabajador());
             worker.setEmaTrabajador(workerDto.getEmaTrabajador());
             worker.setTpcoTrabajador(workerDto.getTpcoTrabajador());
-            worker.setConTrabajador(workerDto.getConTrabajador());
             worker.setCargTrabajador(workerDto.getCargTrabajador());
             worker.setEmpTrabajador(workerDto.getEmpTrabajador());
             walletStatus.setWorker(worker);
@@ -118,7 +116,6 @@ public class WalletStatusBusiness {
             workerDto.setCelTrabajador(worker.getCelTrabajador());
             workerDto.setEmaTrabajador(worker.getEmaTrabajador());
             workerDto.setTpcoTrabajador(worker.getTpcoTrabajador());
-            workerDto.setConTrabajador(worker.getConTrabajador());
             workerDto.setCargTrabajador(worker.getCargTrabajador());
             workerDto.setEmpTrabajador(worker.getEmpTrabajador());
             createdWalletStatusDto.setWorker(workerDto);
@@ -164,7 +161,6 @@ public class WalletStatusBusiness {
             existingWorker.setCelTrabajador(workerDto.getCelTrabajador());
             existingWorker.setEmaTrabajador(workerDto.getEmaTrabajador());
             existingWorker.setTpcoTrabajador(workerDto.getTpcoTrabajador());
-            existingWorker.setConTrabajador(workerDto.getConTrabajador());
             existingWorker.setCargTrabajador(workerDto.getCargTrabajador());
             existingWorker.setEmpTrabajador(workerDto.getEmpTrabajador());
 

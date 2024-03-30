@@ -53,7 +53,6 @@ public class FineBusiness {
                 workerDto.setCelTrabajador(worker.getCelTrabajador());
                 workerDto.setEmaTrabajador(worker.getEmaTrabajador());
                 workerDto.setTpcoTrabajador(worker.getTpcoTrabajador());
-                workerDto.setConTrabajador(worker.getConTrabajador());
                 workerDto.setCargTrabajador(worker.getCargTrabajador());
                 workerDto.setEmpTrabajador(worker.getEmpTrabajador());
                 fineDto.setWorker(workerDto);
@@ -94,7 +93,6 @@ public class FineBusiness {
             worker.setCelTrabajador(workerDto.getCelTrabajador());
             worker.setEmaTrabajador(workerDto.getEmaTrabajador());
             worker.setTpcoTrabajador(workerDto.getTpcoTrabajador());
-            worker.setConTrabajador(workerDto.getConTrabajador());
             worker.setCargTrabajador(workerDto.getCargTrabajador());
             worker.setEmpTrabajador(workerDto.getEmpTrabajador());
             fine.setWorker(worker);
@@ -125,7 +123,6 @@ public class FineBusiness {
             workerDto.setCelTrabajador(worker.getCelTrabajador());
             workerDto.setEmaTrabajador(worker.getEmaTrabajador());
             workerDto.setTpcoTrabajador(worker.getTpcoTrabajador());
-            workerDto.setConTrabajador(worker.getConTrabajador());
             workerDto.setCargTrabajador(worker.getCargTrabajador());
             workerDto.setEmpTrabajador(worker.getEmpTrabajador());
             createdFineDto.setWorker(workerDto);
@@ -169,7 +166,6 @@ public class FineBusiness {
             existingWorker.setCelTrabajador(workerDto.getCelTrabajador());
             existingWorker.setEmaTrabajador(workerDto.getEmaTrabajador());
             existingWorker.setTpcoTrabajador(workerDto.getTpcoTrabajador());
-            existingWorker.setConTrabajador(workerDto.getConTrabajador());
             existingWorker.setCargTrabajador(workerDto.getCargTrabajador());
             existingWorker.setEmpTrabajador(workerDto.getEmpTrabajador());
             existingFine.setWorker(existingWorker);
