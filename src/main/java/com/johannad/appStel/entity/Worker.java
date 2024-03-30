@@ -31,8 +31,6 @@ public class Worker  implements Serializable{
     String emaTrabajador;
     @Column(name ="tpcoTrabajador", length = 40)
     String tpcoTrabajador; //Tipo de contrato indefinido/fijo/prestacion servicios
-    @Column(name = "contTrabajador", length = 50)
-    String conTrabajador; //contrato del trabajador
     @Column(name = "cargTrabajador", length = 30)
     String cargTrabajador; //Administrador, Todero, Vigilante
     @Column(name = "empTrabajador", length = 30)
@@ -53,10 +51,6 @@ public class Worker  implements Serializable{
     @JsonBackReference
     @OneToMany (mappedBy = "worker")
     private List<WalletStatus> walletStatusList;
-
-    @JsonBackReference
-    @OneToMany (mappedBy = "worker")
-    private List<AdminDocs> adminDocsList;
 
     @JsonManagedReference
     @ManyToOne

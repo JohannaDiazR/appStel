@@ -47,7 +47,6 @@ public class WorkerBusiness {
             workerDto.setCelTrabajador(worker.getCelTrabajador());
             workerDto.setEmaTrabajador(worker.getEmaTrabajador());
             workerDto.setTpcoTrabajador(worker.getTpcoTrabajador());
-            workerDto.setConTrabajador(worker.getConTrabajador());
             workerDto.setCargTrabajador(worker.getCargTrabajador());
             workerDto.setEmpTrabajador(worker.getEmpTrabajador());
             workerDtoList.add(workerDto);
@@ -62,7 +61,6 @@ public class WorkerBusiness {
         worker.setCelTrabajador(workerDto.getCelTrabajador());
         worker.setEmaTrabajador(workerDto.getEmaTrabajador());
         worker.setTpcoTrabajador(workerDto.getTpcoTrabajador());
-        worker.setConTrabajador(workerDto.getConTrabajador());
         worker.setCargTrabajador(workerDto.getCargTrabajador());
         worker.setEmpTrabajador(workerDto.getEmpTrabajador());
 
@@ -82,7 +80,6 @@ public class WorkerBusiness {
         createdWorkerDto.setCelTrabajador(createdWorker.getCelTrabajador());
         createdWorkerDto.setEmaTrabajador(createdWorker.getEmaTrabajador());
         createdWorkerDto.setTpcoTrabajador(createdWorker.getTpcoTrabajador());
-        createdWorkerDto.setConTrabajador(createdWorker.getConTrabajador());
         createdWorkerDto.setCargTrabajador(createdWorker.getCargTrabajador());
         createdWorkerDto.setEmpTrabajador(createdWorker.getEmpTrabajador());
 
@@ -108,7 +105,6 @@ public class WorkerBusiness {
         existingWorker.setCelTrabajador(workerDto.getCelTrabajador());
         existingWorker.setEmaTrabajador(workerDto.getEmaTrabajador());
         existingWorker.setTpcoTrabajador(workerDto.getTpcoTrabajador());
-        existingWorker.setConTrabajador(workerDto.getConTrabajador());
         existingWorker.setCargTrabajador(workerDto.getCargTrabajador());
         existingWorker.setEmpTrabajador(workerDto.getEmpTrabajador());
 

@@ -18,7 +18,6 @@ public class WorkerDto {
     private long celTrabajador;
     private String emaTrabajador;
     private String tpcoTrabajador;
-    private String conTrabajador;
     private String cargTrabajador;
     private String empTrabajador;
 
