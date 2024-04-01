@@ -62,4 +62,18 @@ public class VisitorController {
             return new ResponseEntity<>(res, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Map<String, Object>> deleteVisitor(@PathVariable int id) {
+        Map<String, Object> res = new HashMap<>();
+        try {
+            visitorBusiness.delete(id);
+            res.put("status", "success");
+            res.put("message", "Visitor deleted successfully");
+            return new ResponseEntity<>(res, HttpStatus.OK);
+        } catch (Exception e) {
+            res.put("status", "error");
+            res.put("message", e.getMessage());
+            return new ResponseEntity<>(res, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

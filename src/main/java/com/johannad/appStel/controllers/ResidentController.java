@@ -58,5 +58,19 @@ public class ResidentController {
             return new ResponseEntity<>(res, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Map<String, Object>> deleteResident(@PathVariable int id) {
+        Map<String, Object> res = new HashMap<>();
+        try {
+            residentBusiness.delete(id);
+            res.put("status", "success");
+            res.put("message", "Resident deleted successfully");
+            return new ResponseEntity<>(res, HttpStatus.OK);
+        } catch (Exception e) {
+            res.put("status", "error");
+            res.put("message", e.getMessage());
+            return new ResponseEntity<>(res, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 }

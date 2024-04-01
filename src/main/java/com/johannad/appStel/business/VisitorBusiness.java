@@ -1,10 +1,7 @@
 package com.johannad.appStel.business;
 
 import com.johannad.appStel.dtos.*;
-import com.johannad.appStel.entity.Parking;
-import com.johannad.appStel.entity.Property;
-import com.johannad.appStel.entity.Visitor;
-import com.johannad.appStel.entity.Worker;
+import com.johannad.appStel.entity.*;
 import com.johannad.appStel.service.ParkingService;
 import com.johannad.appStel.service.PropertyService;
 import com.johannad.appStel.service.VisitorService;
@@ -231,6 +228,15 @@ public class VisitorBusiness {
             existingVisitor.setProperty(existingProperty);
         }
         visitorService.update(existingVisitor);
+    }
+
+    public void delete(int id) throws Exception {
+        Visitor existingVisitor = visitorService.findById(id);
+        if (existingVisitor == null) {
+            throw new Exception("Visitor not found");
+        }
+
+        visitorService.delete(existingVisitor);
     }
 
 }

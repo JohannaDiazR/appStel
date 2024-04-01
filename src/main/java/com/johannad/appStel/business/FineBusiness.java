@@ -173,5 +173,13 @@ public class FineBusiness {
 
         fineService.update(existingFine);
     }
+    public void delete(int id) throws Exception {
+        Fine existingFine = fineService.findById(id);
+        if (existingFine == null) {
+            throw new Exception("Fine not found");
+        }
+
+        fineService.delete(existingFine);
+    }
 
 }

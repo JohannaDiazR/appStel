@@ -6,6 +6,7 @@ import com.johannad.appStel.dtos.RoleDto;
 import com.johannad.appStel.entity.Parking;
 import com.johannad.appStel.entity.Resident;
 import com.johannad.appStel.entity.Role;
+import com.johannad.appStel.entity.WalletStatus;
 import com.johannad.appStel.service.ParkingService;
 import com.johannad.appStel.service.ResidentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -170,5 +171,14 @@ public class ResidentBusiness {
         }
 
         residentService.update(existingResident);
+    }
+
+    public void delete(int id) throws Exception {
+        Resident existingResident = residentService.findById(id);
+        if (existingResident == null) {
+            throw new Exception("Worker not found");
+        }
+
+        residentService.delete(existingResident);
     }
 }

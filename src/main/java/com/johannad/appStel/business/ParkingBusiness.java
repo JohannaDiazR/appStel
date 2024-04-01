@@ -78,4 +78,12 @@ public class ParkingBusiness {
         parkingService.update(existingParking);
     }
 
+    public void delete(int id) throws Exception {
+        Parking existingParking = parkingService.findById(id);
+        if (existingParking == null) {
+            throw new Exception("Worker not found");
+        }
+
+        parkingService.delete(existingParking);
+    }
 }

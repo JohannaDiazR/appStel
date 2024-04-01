@@ -58,4 +58,19 @@ public class ParkingController {
             return new ResponseEntity<>(res, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Map<String, Object>> deleteParking(@PathVariable int id) {
+        Map<String, Object> res = new HashMap<>();
+        try {
+            parkingBusiness.delete(id);
+            res.put("status", "success");
+            res.put("message", "Parking deleted successfully");
+            return new ResponseEntity<>(res, HttpStatus.OK);
+        } catch (Exception e) {
+            res.put("status", "error");
+            res.put("message", e.getMessage());
+            return new ResponseEntity<>(res, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

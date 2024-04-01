@@ -131,5 +131,14 @@ public class CorrespondenceBusiness {
         }
         correspondenceService.update(existingCorrespondence);
     }
+    public void delete(int id) throws Exception {
+        Correspondence existingCorrespondence = correspondenceService.findById(id);
+        if (existingCorrespondence == null) {
+            throw new Exception("Correspondence not found");
+        }
+
+        correspondenceService.delete(existingCorrespondence);
+    }
+
 
 }

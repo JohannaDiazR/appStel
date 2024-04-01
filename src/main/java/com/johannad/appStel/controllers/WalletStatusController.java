@@ -2,13 +2,9 @@ package com.johannad.appStel.controllers;
 
 
 import com.johannad.appStel.business.WalletStatusBusiness;
-import com.johannad.appStel.dtos.AdminDocsDto;
 import com.johannad.appStel.dtos.WalletStatusDto;
-import com.johannad.appStel.dtos.WorkerDto;
-import com.johannad.appStel.entity.Visitor;
 import com.johannad.appStel.entity.WalletStatus;
 import com.johannad.appStel.entity.Worker;
-import com.johannad.appStel.service.imp.WalletStatusImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -56,6 +52,21 @@ public class WalletStatusController {
             walletStatusBusiness.update(updatedWalletStatusDto, id);
             res.put("status", "success");
             res.put("data", updatedWalletStatusDto);
+            return new ResponseEntity<>(res, HttpStatus.OK);
+        } catch (Exception e) {
+            res.put("status", "error");
+            res.put("message", e.getMessage());
+            return new ResponseEntity<>(res, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Map<String, Object>> deleteWalletStatus(@PathVariable int id) {
+        Map<String, Object> res = new HashMap<>();
+        try {
+            walletStatusBusiness.delete(id);
+            res.put("status", "success");
+            res.put("message", "WalletStatus deleted successfully");
             return new ResponseEntity<>(res, HttpStatus.OK);
         } catch (Exception e) {
             res.put("status", "error");

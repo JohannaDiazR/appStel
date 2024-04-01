@@ -4,6 +4,7 @@ import com.johannad.appStel.dtos.RoleDto;
 import com.johannad.appStel.dtos.UserDto;
 import com.johannad.appStel.entity.Role;
 import com.johannad.appStel.entity.User;
+import com.johannad.appStel.entity.WalletStatus;
 import com.johannad.appStel.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -63,4 +64,12 @@ public class RoleBusiness {
         roleService.update(existingRole);
     }
 
+    public void delete(int id) throws Exception {
+        Role existingRole = roleService.findById(id);
+        if (existingRole == null) {
+            throw new Exception("Worker not found");
+        }
+
+        roleService.delete(existingRole);
+    }
 }

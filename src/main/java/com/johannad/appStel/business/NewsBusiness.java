@@ -27,7 +27,6 @@ public class NewsBusiness {
             newsDto.setTipoNovedad(news.getTipoNovedad());
             newsDto.setAsuntoNovedades(news.getAsuntoNovedades());
             newsDto.setDescNovedades(news.getDescNovedades());
-            newsDto.setDocNovedades(news.getDocNovedades());
             newsDto.setFecNovedades(news.getFecNovedades());
             newsDto.setResNovedades(news.getResNovedades());
             newsDto.setEstNovedades(news.getEstNovedades());
@@ -40,7 +39,6 @@ public class NewsBusiness {
         News news = new News();
         news.setAsuntoNovedades(newsDto.getAsuntoNovedades());
         news.setDescNovedades(newsDto.getDescNovedades());
-        news.setDocNovedades(newsDto.getDocNovedades());
         news.setEstNovedades(newsDto.getEstNovedades());
         news.setFecNovedades(newsDto.getFecNovedades());
         news.setRemNovedades(newsDto.getRemNovedades());
@@ -52,7 +50,6 @@ public class NewsBusiness {
         createdNewsDto.setId(createdNews.getId());
         createdNewsDto.setAsuntoNovedades(createdNews.getAsuntoNovedades());
         createdNewsDto.setDescNovedades(createdNews.getDescNovedades());
-        createdNewsDto.setDocNovedades(createdNews.getDocNovedades());
         createdNewsDto.setEstNovedades(createdNews.getEstNovedades());
         createdNewsDto.setFecNovedades(createdNews.getFecNovedades());
         createdNewsDto.setRemNovedades(createdNews.getRemNovedades());
@@ -71,7 +68,6 @@ public class NewsBusiness {
 
         existingNews.setAsuntoNovedades(newsDto.getAsuntoNovedades());
         existingNews.setDescNovedades(newsDto.getDescNovedades());
-        existingNews.setDocNovedades(newsDto.getDocNovedades());
         existingNews.setEstNovedades(newsDto.getEstNovedades());
         existingNews.setFecNovedades(newsDto.getFecNovedades());
         existingNews.setRemNovedades(newsDto.getRemNovedades());
@@ -80,7 +76,14 @@ public class NewsBusiness {
 
         newsService.update(existingNews);
     }
+    public void delete(int id) throws Exception {
+        News existingNews = newsService.findById(id);
+        if (existingNews == null) {
+            throw new Exception("News not found");
+        }
 
+        newsService.delete(existingNews);
+    }
 
 
 

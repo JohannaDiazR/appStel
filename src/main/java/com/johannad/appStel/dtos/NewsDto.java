@@ -15,7 +15,6 @@ public class NewsDto {
     private String tipoNovedad;
     private String asuntoNovedades ;
     private String descNovedades;
-    private String docNovedades;
     private Date fecNovedades;
     private String resNovedades;
     private String estNovedades;

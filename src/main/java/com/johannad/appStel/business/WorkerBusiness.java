@@ -123,4 +123,12 @@ public class WorkerBusiness {
         workerService.update(existingWorker);
     }
 
+    public void delete(int id) throws Exception {
+        Worker existingWorker = workerService.findById(id);
+        if (existingWorker == null) {
+            throw new Exception("Worker not found");
+        }
+
+        workerService.delete(existingWorker);
+    }
 }

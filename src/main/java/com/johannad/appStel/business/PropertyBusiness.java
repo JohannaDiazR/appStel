@@ -116,6 +116,15 @@ public class PropertyBusiness {
 
         propertyService.update(existingProperty);
     }
+
+    public void delete(int id) throws Exception {
+        Property existingProperty = propertyService.findById(id);
+        if (existingProperty == null) {
+            throw new Exception("Property not found");
+        }
+
+        propertyService.delete(existingProperty);
+    }
 }
 
 

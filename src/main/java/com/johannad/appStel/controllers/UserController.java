@@ -26,12 +26,18 @@ public class UserController {
     @Autowired
     private UserBusiness userBusiness;
     @GetMapping("/all")
-    public ResponseEntity<Map<String,Object>> findAllUser() throws Exception {
-        Map<String,Object> res = new HashMap<>();
-        List<UserDto> listUserDto=this.userBusiness.findAll();
-        res.put("status","success");
-        res.put("data",listUserDto);
-        return new ResponseEntity<>(res, HttpStatus.OK);
+    public ResponseEntity<Map<String, Object>> findAllUser() {
+        Map<String, Object> res = new HashMap<>();
+        try {
+            List<UserDto> listUserDto = this.userBusiness.findAll();
+            res.put("status", "success");
+            res.put("data", listUserDto);
+            return new ResponseEntity<>(res, HttpStatus.OK);
+        } catch (Exception e) {
+            res.put("status", "error");
+            res.put("message", e.getMessage());
+            return new ResponseEntity<>(res, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
     @PostMapping("/create")
     public ResponseEntity<Map<String, Object>> createUser(@RequestBody UserDto userDto) {
@@ -61,4 +67,20 @@ public class UserController {
             return new ResponseEntity<>(res, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Map<String, Object>> deleteUser(@PathVariable int id) {
+        Map<String, Object> res = new HashMap<>();
+        try {
+            userBusiness.delete(id);
+            res.put("status", "success");
+            res.put("message", "User deleted successfully");
+            return new ResponseEntity<>(res, HttpStatus.OK);
+        } catch (Exception e) {
+            res.put("status", "error");
+            res.put("message", e.getMessage());
+            return new ResponseEntity<>(res, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

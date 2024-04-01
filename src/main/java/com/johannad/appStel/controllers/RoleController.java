@@ -56,4 +56,18 @@ public class RoleController {
             return new ResponseEntity<>(res, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Map<String, Object>> deleteRole(@PathVariable int id) {
+        Map<String, Object> res = new HashMap<>();
+        try {
+            roleBusiness.delete(id);
+            res.put("status", "success");
+            res.put("message", "Role deleted successfully");
+            return new ResponseEntity<>(res, HttpStatus.OK);
+        } catch (Exception e) {
+            res.put("status", "error");
+            res.put("message", e.getMessage());
+            return new ResponseEntity<>(res, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

@@ -31,9 +31,6 @@ public class News implements Serializable {
     @Column(name = "desc_novedades", length = 65)
     private String descNovedades;
 
-    @Column(name = "doc_novedades", length = 35)
-    private String docNovedades;
-
     @Column(name = "fec_novedades")
     private Date fecNovedades;
 

@@ -22,14 +22,16 @@ public class FineController {
 
     @Autowired
     private FineBusiness fineBusiness;
+
     @GetMapping("/all")
-    public ResponseEntity<Map<String,Object>> findAllFine() throws Exception {
-        Map<String,Object> res = new HashMap<>();
+    public ResponseEntity<Map<String, Object>> findAllFine() throws Exception {
+        Map<String, Object> res = new HashMap<>();
         List<FineDto> listFineDto = this.fineBusiness.findAll();
-        res.put("status","success");
-        res.put("data",listFineDto);
+        res.put("status", "success");
+        res.put("data", listFineDto);
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
+
     @PostMapping("/create")
     public ResponseEntity<Map<String, Object>> createFine(@RequestBody FineDto fineDto) {
         Map<String, Object> res = new HashMap<>();
@@ -52,6 +54,21 @@ public class FineController {
             fineBusiness.update(updatedFineDto, id);
             res.put("status", "success");
             res.put("data", updatedFineDto);
+            return new ResponseEntity<>(res, HttpStatus.OK);
+        } catch (Exception e) {
+            res.put("status", "error");
+            res.put("message", e.getMessage());
+            return new ResponseEntity<>(res, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Map<String, Object>> deleteFine(@PathVariable int id) {
+        Map<String, Object> res = new HashMap<>();
+        try {
+            fineBusiness.delete(id);
+            res.put("status", "success");
+            res.put("message", "Fine deleted successfully");
             return new ResponseEntity<>(res, HttpStatus.OK);
         } catch (Exception e) {
             res.put("status", "error");

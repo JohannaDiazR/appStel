@@ -4,6 +4,7 @@ import com.johannad.appStel.dtos.RoleDto;
 import com.johannad.appStel.dtos.UserDto;
 import com.johannad.appStel.entity.Role;
 import com.johannad.appStel.entity.User;
+import com.johannad.appStel.entity.WalletStatus;
 import com.johannad.appStel.service.RoleService;
 import com.johannad.appStel.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,5 +91,12 @@ public class UserBusiness {
         }
         userService.update(existingUser);
     }
+    public void delete(int id) throws Exception {
+        User existingUser = userService.findById(id);
+        if (existingUser == null) {
+            throw new Exception("User not found");
+        }
 
+        userService.delete(existingUser);
+    }
 }

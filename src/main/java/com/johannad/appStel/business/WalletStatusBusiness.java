@@ -168,5 +168,13 @@ public class WalletStatusBusiness {
         }
         walletStatusService.update(existingWalletStatus);
     }
+    public void delete(int id) throws Exception {
+        WalletStatus existingWalletStatus = walletStatusService.findById(id);
+        if (existingWalletStatus == null) {
+            throw new Exception("WalletStatus not found");
+        }
+
+        walletStatusService.delete(existingWalletStatus);
+    }
 
 }
