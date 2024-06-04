@@ -42,10 +42,18 @@ public class WorkerBusiness {
                 roleDto.setNombreRol(role.getNombreRol());
                 workerDto.setRole(roleDto);
             }
-            workerDto.setNomTrabajador(worker.getNomTrabajador());
-            workerDto.setCcTrabajador(worker.getCcTrabajador());
-            workerDto.setCelTrabajador(worker.getCelTrabajador());
-            workerDto.setEmaTrabajador(worker.getEmaTrabajador());
+            User user = worker.getUser();
+            if (user != null){
+                UserDto userDto = new UserDto();
+                userDto.setId(user.getId());
+                userDto.setUsuario(user.getUsuario());
+                userDto.setContrasena(user.getContrasena());
+                userDto.setNombre(user.getNombre());
+                userDto.setCedula(user.getCedula());
+                userDto.setCelular(user.getCelular());
+                workerDto.setUser(userDto);
+            }
+
             workerDto.setTpcoTrabajador(worker.getTpcoTrabajador());
             workerDto.setCargTrabajador(worker.getCargTrabajador());
             workerDto.setEmpTrabajador(worker.getEmpTrabajador());
@@ -56,10 +64,6 @@ public class WorkerBusiness {
     //POST
     public WorkerDto create(WorkerDto workerDto) throws Exception {
         Worker worker = new Worker();
-        worker.setNomTrabajador(workerDto.getNomTrabajador());
-        worker.setCcTrabajador(workerDto.getCcTrabajador());
-        worker.setCelTrabajador(workerDto.getCelTrabajador());
-        worker.setEmaTrabajador(workerDto.getEmaTrabajador());
         worker.setTpcoTrabajador(workerDto.getTpcoTrabajador());
         worker.setCargTrabajador(workerDto.getCargTrabajador());
         worker.setEmpTrabajador(workerDto.getEmpTrabajador());
@@ -71,17 +75,21 @@ public class WorkerBusiness {
             role.setNombreRol(roleDto.getNombreRol());
             worker.setRole(role);
         }
+        UserDto userDto = workerDto.getUser();
+        if (userDto != null) {
+            User user = new User();
+            user.setId(userDto.getId());
+            user.setUsuario(userDto.getUsuario());
+            user.setContrasena(userDto.getContrasena());
+            user.setNombre(userDto.getNombre());
+            user.setCedula(userDto.getCedula());
+            user.setCelular(userDto.getCelular());
+            worker.setUser(user);
+        }
 
         Worker createdWorker = workerService.create(worker);
         WorkerDto createdWorkerDto = new WorkerDto();
         createdWorkerDto.setId(createdWorker.getId());
-        createdWorkerDto.setNomTrabajador(createdWorker.getNomTrabajador());
-        createdWorkerDto.setCcTrabajador(createdWorker.getCcTrabajador());
-        createdWorkerDto.setCelTrabajador(createdWorker.getCelTrabajador());
-        createdWorkerDto.setEmaTrabajador(createdWorker.getEmaTrabajador());
-        createdWorkerDto.setTpcoTrabajador(createdWorker.getTpcoTrabajador());
-        createdWorkerDto.setCargTrabajador(createdWorker.getCargTrabajador());
-        createdWorkerDto.setEmpTrabajador(createdWorker.getEmpTrabajador());
 
         Role createdRole = createdWorker.getRole();
         if (createdRole != null) {
@@ -90,6 +98,21 @@ public class WorkerBusiness {
             createdRoleDto.setNombreRol(createdRole.getNombreRol());
             createdWorkerDto.setRole(createdRoleDto);
         }
+        UserDto createdUserDto = new UserDto();
+        User createdUser = createdWorker.getUser();
+        if (createdUser != null) {
+            createdUserDto.setId(createdUser.getId());
+            createdUserDto.setUsuario(createdUser.getUsuario());
+            createdUserDto.setContrasena(createdUser.getContrasena());
+            createdUserDto.setNombre(createdUser.getNombre());
+            createdUserDto.setCedula(createdUser.getCedula());
+            createdUserDto.setCelular(createdUser.getCelular());
+            createdWorkerDto.setUser(createdUserDto);
+        }
+
+        createdWorkerDto.setTpcoTrabajador(createdWorker.getTpcoTrabajador());
+        createdWorkerDto.setCargTrabajador(createdWorker.getCargTrabajador());
+        createdWorkerDto.setEmpTrabajador(createdWorker.getEmpTrabajador());
 
         return createdWorkerDto;
     }
@@ -100,10 +123,6 @@ public class WorkerBusiness {
             throw new Exception("Worker not found");
         }
 
-        existingWorker.setNomTrabajador(workerDto.getNomTrabajador());
-        existingWorker.setCcTrabajador(workerDto.getCcTrabajador());
-        existingWorker.setCelTrabajador(workerDto.getCelTrabajador());
-        existingWorker.setEmaTrabajador(workerDto.getEmaTrabajador());
         existingWorker.setTpcoTrabajador(workerDto.getTpcoTrabajador());
         existingWorker.setCargTrabajador(workerDto.getCargTrabajador());
         existingWorker.setEmpTrabajador(workerDto.getEmpTrabajador());
@@ -114,10 +133,23 @@ public class WorkerBusiness {
             if (existingRole == null) {
                 existingRole = new Role();
             }
-
             existingRole.setId(roleDto.getId());
             existingRole.setNombreRol(roleDto.getNombreRol());
             existingWorker.setRole(existingRole);
+        }
+        UserDto userDto = workerDto.getUser();
+        if (userDto != null) {
+            User existingUser = existingWorker.getUser();
+            if (existingUser == null){
+                existingUser = new User();
+            }
+            existingUser.setId(userDto.getId());
+            existingUser.setUsuario(userDto.getUsuario());
+            existingUser.setContrasena(userDto.getContrasena());
+            existingUser.setNombre(userDto.getNombre());
+            existingUser.setCedula(userDto.getCedula());
+            existingUser.setCelular(userDto.getCelular());
+            existingWorker.setUser(existingUser);
         }
 
         workerService.update(existingWorker);

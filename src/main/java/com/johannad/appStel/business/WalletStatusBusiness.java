@@ -47,10 +47,7 @@ public class WalletStatusBusiness {
             if (worker != null){
                 WorkerDto workerDto = new WorkerDto();
                 workerDto.setId(worker.getId());
-                workerDto.setNomTrabajador(worker.getNomTrabajador());
-                workerDto.setCcTrabajador(worker.getCcTrabajador());
-                workerDto.setCelTrabajador(worker.getCelTrabajador());
-                workerDto.setEmaTrabajador(worker.getEmaTrabajador());
+
                 workerDto.setTpcoTrabajador(worker.getTpcoTrabajador());
                 workerDto.setCargTrabajador(worker.getCargTrabajador());
                 workerDto.setEmpTrabajador(worker.getEmpTrabajador());
@@ -83,10 +80,7 @@ public class WalletStatusBusiness {
         if (workerDto != null) {
             Worker worker = new Worker();
             worker.setId(workerDto.getId());
-            worker.setNomTrabajador(workerDto.getNomTrabajador());
-            worker.setCcTrabajador(workerDto.getCcTrabajador());
-            worker.setCelTrabajador(workerDto.getCelTrabajador());
-            worker.setEmaTrabajador(workerDto.getEmaTrabajador());
+
             worker.setTpcoTrabajador(workerDto.getTpcoTrabajador());
             worker.setCargTrabajador(workerDto.getCargTrabajador());
             worker.setEmpTrabajador(workerDto.getEmpTrabajador());
@@ -111,10 +105,7 @@ public class WalletStatusBusiness {
         if (worker != null) {
             workerDto = new WorkerDto();
             workerDto.setId(worker.getId());
-            workerDto.setNomTrabajador(worker.getNomTrabajador());
-            workerDto.setCcTrabajador(worker.getCcTrabajador());
-            workerDto.setCelTrabajador(worker.getCelTrabajador());
-            workerDto.setEmaTrabajador(worker.getEmaTrabajador());
+
             workerDto.setTpcoTrabajador(worker.getTpcoTrabajador());
             workerDto.setCargTrabajador(worker.getCargTrabajador());
             workerDto.setEmpTrabajador(worker.getEmpTrabajador());
@@ -156,10 +147,7 @@ public class WalletStatusBusiness {
                 existingWorker = new Worker();
             }
             existingWorker.setId(workerDto.getId());
-            existingWorker.setNomTrabajador(workerDto.getNomTrabajador());
-            existingWorker.setCcTrabajador(workerDto.getCcTrabajador());
-            existingWorker.setCelTrabajador(workerDto.getCelTrabajador());
-            existingWorker.setEmaTrabajador(workerDto.getEmaTrabajador());
+
             existingWorker.setTpcoTrabajador(workerDto.getTpcoTrabajador());
             existingWorker.setCargTrabajador(workerDto.getCargTrabajador());
             existingWorker.setEmpTrabajador(workerDto.getEmpTrabajador());

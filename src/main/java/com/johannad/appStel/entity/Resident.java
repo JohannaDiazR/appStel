@@ -21,18 +21,6 @@ public class Resident implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "nom_residente", length = 35)
-    private String nomResidente;
-
-    @Column(name = "ced_residente", length = 11)
-    private int cedResidente;
-
-    @Column(name = "ema_residente", length = 40)
-    private String emaResidente;
-
-    @Column(name = "cel_residente", length = 11)
-    private long celResidente;
-
     @Column(name = "num_integrantes")
     private int numIntegrantes;
 
@@ -51,5 +39,8 @@ public class Resident implements Serializable{
     private List<Property> propertyList;
 
 
-
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name= "fkid_user")
+    private User user;
 }

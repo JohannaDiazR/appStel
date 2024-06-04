@@ -21,14 +21,6 @@ public class Worker  implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY )
     int id;
-    @Column(name = "nomTrabajador", length = 35)
-    String nomTrabajador;
-    @Column(name = "ccTrabajador", nullable = false)
-    int ccTrabajador;
-    @Column(name = "celTrabajador", nullable = false)
-    long celTrabajador;
-    @Column(name = "emaTrabajador", length = 40)
-    String emaTrabajador;
     @Column(name ="tpcoTrabajador", length = 40)
     String tpcoTrabajador; //Tipo de contrato indefinido/fijo/prestacion servicios
     @Column(name = "cargTrabajador", length = 30)
@@ -56,6 +48,11 @@ public class Worker  implements Serializable{
     @ManyToOne
     @JoinColumn(name = "fkid_rol")
     private Role role;
+
+   @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name= "fkid_user")
+    private User user;
 
 
 }

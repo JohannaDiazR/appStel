@@ -1,4 +1,5 @@
 package com.johannad.appStel.entity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -21,20 +22,14 @@ public class Visitor implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "nom_visitante", length = 35)
-    private String nomVisitante; // Nombre del visitante
-
-    @Column(name = "ced_visitante", length = 11)
-    private int cedVisitante; // Cedula del visitante
-
     @Column(name = "nom_residente", length = 35)
     private String nomResidente; // Nombre del residente
 
-    @Column(name = "car_visitante")
-    private boolean carVisitante; // Carro del visitante
+    @Column(name = "car_visitante", length = 2)
+    private String carVisitante; // Carro del visitante
 
-    @Column(name = "ingr_visitante")
-    private boolean ingrVisitante; // Ingreso del visitante
+    @Column(name = "ingr_visitante", length = 2)
+    private String ingrVisitante; // Ingreso del visitante
 
     @Column(name = "fec_visitante")
     private Date fecVisitante; // Fecha ingreso del visitante
@@ -54,4 +49,8 @@ public class Visitor implements Serializable {
     @JoinColumn(name = "fkid_inmueble")
     private Property property;
 
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name= "fkid_user")
+    private User user;
 }

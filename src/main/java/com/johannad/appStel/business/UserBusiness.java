@@ -1,10 +1,8 @@
 package com.johannad.appStel.business;
 
-import com.johannad.appStel.dtos.RoleDto;
-import com.johannad.appStel.dtos.UserDto;
-import com.johannad.appStel.entity.Role;
-import com.johannad.appStel.entity.User;
-import com.johannad.appStel.entity.WalletStatus;
+import com.johannad.appStel.dtos.*;
+import com.johannad.appStel.entity.*;
+import com.johannad.appStel.service.ResidentService;
 import com.johannad.appStel.service.RoleService;
 import com.johannad.appStel.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +17,8 @@ public class UserBusiness {
     private UserService userService;
     @Autowired
     private RoleService roleService;
+    @Autowired
+    private ResidentService residentService;
     private List<User> userList;
 
     public List<UserDto> findAll() throws Exception {
@@ -35,8 +35,12 @@ public class UserBusiness {
                 roleDto.setNombreRol(role.getNombreRol());
                 userDto.setRole(roleDto);
             }
+
             userDto.setUsuario(user.getUsuario());
             userDto.setContrasena(user.getContrasena());
+            userDto.setNombre(user.getNombre());
+            userDto.setCedula(user.getCedula());
+            userDto.setCelular(user.getCelular());
             userDtoList.add(userDto);
         });
         return userDtoList;
@@ -46,6 +50,9 @@ public class UserBusiness {
         User user = new User();
         user.setUsuario(userDto.getUsuario());
         user.setContrasena(userDto.getContrasena());
+        user.setNombre(userDto.getNombre());
+        user.setCedula(userDto.getCedula());
+        user.setCelular(userDto.getCelular());
 
         RoleDto roleDto = userDto.getRole();
         if (roleDto != null) {
@@ -59,6 +66,9 @@ public class UserBusiness {
         createdUserDto.setId(createdUser.getId());
         createdUserDto.setUsuario(createdUser.getUsuario());
         createdUserDto.setContrasena(createdUser.getContrasena());
+        createdUserDto.setNombre(createdUser.getNombre());
+        createdUserDto.setCedula(createdUser.getCedula());
+        createdUserDto.setCelular(createdUser.getCelular());
 
         Role role = createdUser.getRole();
         if (role != null) {
@@ -77,6 +87,9 @@ public class UserBusiness {
         }
         existingUser.setUsuario(userDto.getUsuario());
         existingUser.setContrasena(userDto.getContrasena());
+        existingUser.setNombre(userDto.getNombre());
+        existingUser.setCedula(userDto.getCedula());
+        existingUser.setCelular(userDto.getCelular());
 
         RoleDto roleDto = userDto.getRole();
         if (roleDto != null) {

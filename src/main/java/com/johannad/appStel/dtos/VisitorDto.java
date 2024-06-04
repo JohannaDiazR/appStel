@@ -12,17 +12,17 @@ import java.util.Date;
 @NoArgsConstructor
 public class VisitorDto {
     private int id;
-    private String nomVisitante;
-    private int cedVisitante;
     private String nomResidente;
-    private boolean carVisitante;
-    private boolean ingrVisitante;
+    private String carVisitante;
+    private String ingrVisitante;
     private Date fecVisitante;
 
     @JsonIgnoreProperties({"role"})
     private WorkerDto worker;
     @JsonIgnoreProperties({"resident"})
-    private PropertyDto property;
-
     private ParkingDto parking;
+    private PropertyDto property;
+    private UserDto user;
+
+
 }

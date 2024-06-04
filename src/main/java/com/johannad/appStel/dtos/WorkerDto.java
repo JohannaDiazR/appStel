@@ -13,16 +13,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class WorkerDto {
     private int id;
-    private String nomTrabajador;
-    private int ccTrabajador;
-    private long celTrabajador;
-    private String emaTrabajador;
     private String tpcoTrabajador;
     private String cargTrabajador;
     private String empTrabajador;
 
 
     private RoleDto role;
+    private UserDto user;
 
 
 }

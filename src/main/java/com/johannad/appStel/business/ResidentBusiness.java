@@ -3,10 +3,8 @@ package com.johannad.appStel.business;
 import com.johannad.appStel.dtos.ParkingDto;
 import com.johannad.appStel.dtos.ResidentDto;
 import com.johannad.appStel.dtos.RoleDto;
-import com.johannad.appStel.entity.Parking;
-import com.johannad.appStel.entity.Resident;
-import com.johannad.appStel.entity.Role;
-import com.johannad.appStel.entity.WalletStatus;
+import com.johannad.appStel.dtos.UserDto;
+import com.johannad.appStel.entity.*;
 import com.johannad.appStel.service.ParkingService;
 import com.johannad.appStel.service.ResidentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,11 +51,19 @@ public class ResidentBusiness {
                 parkingDto.setTarParqueadero(parking.getTarParqueadero());
                 residentDto.setParking(parkingDto);
             }
+            User user = resident.getUser();
+            if (user != null) {
+                UserDto userDto = new UserDto();
+                userDto.setId(user.getId());
+                userDto.setUsuario(user.getUsuario());
+                userDto.setContrasena(user.getContrasena());
+                userDto.setNombre(user.getNombre());
+                userDto.setCedula(user.getCedula());
+                userDto.setCelular(user.getCelular());
+                residentDto.setUser(userDto);
+            }
 
-            residentDto.setNomResidente(resident.getNomResidente());
-            residentDto.setCedResidente(resident.getCedResidente());
-            residentDto.setEmaResidente(resident.getEmaResidente());
-            residentDto.setCelResidente(resident.getCelResidente());
+
             residentDto.setNumIntegrantes(resident.getNumIntegrantes());
             residentDtoList.add(residentDto);
         });
@@ -66,10 +72,6 @@ public class ResidentBusiness {
     //POST
     public ResidentDto create(ResidentDto residentDto) throws Exception {
         Resident resident = new Resident();
-        resident.setNomResidente(residentDto.getNomResidente());
-        resident.setCedResidente(residentDto.getCedResidente());
-        resident.setEmaResidente(residentDto.getEmaResidente());
-        resident.setCelResidente(residentDto.getCelResidente());
         resident.setNumIntegrantes(residentDto.getNumIntegrantes());
 
         RoleDto roleDto = residentDto.getRole();
@@ -92,6 +94,17 @@ public class ResidentBusiness {
             parking.setHoraSalida(parkingDto.getHoraSalida());
             parking.setTarParqueadero(parkingDto.getTarParqueadero());
             resident.setParking(parking);
+        }
+        UserDto userDto = residentDto.getUser();
+        if (userDto != null) {
+            User user = new User();
+            user.setId(userDto.getId());
+            user.setUsuario(userDto.getUsuario());
+            user.setContrasena(userDto.getContrasena());
+            user.setNombre(userDto.getNombre());
+            user.setCedula(userDto.getCedula());
+            user.setCelular(userDto.getCelular());
+            resident.setUser(user);
         }
 
         Resident createdResident = residentService.create(resident);
@@ -120,11 +133,18 @@ public class ResidentBusiness {
             createdParkingDto.setTarParqueadero(createdParking.getTarParqueadero());
             createdResidentDto.setParking(createdParkingDto);
         }
+        UserDto createdUserDto = new UserDto();
+        User createdUser = createdResident.getUser();
+        if (createdUser != null) {
+            createdUserDto.setId(createdUser.getId());
+            createdUserDto.setUsuario(createdUser.getUsuario());
+            createdUserDto.setContrasena(createdUser.getContrasena());
+            createdUserDto.setNombre(createdUser.getNombre());
+            createdUserDto.setCedula(createdUser.getCedula());
+            createdUserDto.setCelular(createdUser.getCelular());
+            createdResidentDto.setUser(createdUserDto);
+        }
 
-        createdResidentDto.setNomResidente(createdResident.getNomResidente());
-        createdResidentDto.setCedResidente(createdResident.getCedResidente());
-        createdResidentDto.setEmaResidente(createdResident.getEmaResidente());
-        createdResidentDto.setCelResidente(createdResident.getCelResidente());
         createdResidentDto.setNumIntegrantes(createdResident.getNumIntegrantes());
 
         return createdResidentDto;
@@ -136,10 +156,6 @@ public class ResidentBusiness {
             throw new Exception("Resident not found");
         }
 
-        existingResident.setNomResidente(residentDto.getNomResidente());
-        existingResident.setCedResidente(residentDto.getCedResidente());
-        existingResident.setEmaResidente(residentDto.getEmaResidente());
-        existingResident.setCelResidente(residentDto.getCelResidente());
         existingResident.setNumIntegrantes(residentDto.getNumIntegrantes());
 
         RoleDto roleDto = residentDto.getRole();
@@ -168,6 +184,20 @@ public class ResidentBusiness {
             existingParking.setHoraSalida(parkingDto.getHoraSalida());
             existingParking.setTarParqueadero(parkingDto.getTarParqueadero());
             existingResident.setParking(existingParking);
+        }
+        UserDto userDto = residentDto.getUser();
+        if (userDto != null) {
+            User existingUser = existingResident.getUser();
+            if (existingUser == null){
+                existingUser = new User();
+            }
+            existingUser.setId(userDto.getId());
+            existingUser.setUsuario(userDto.getUsuario());
+            existingUser.setContrasena(userDto.getContrasena());
+            existingUser.setNombre(userDto.getNombre());
+            existingUser.setCedula(userDto.getCedula());
+            existingUser.setCelular(userDto.getCelular());
+            existingResident.setUser(existingUser);
         }
 
         residentService.update(existingResident);

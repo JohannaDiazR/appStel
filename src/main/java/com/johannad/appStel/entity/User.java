@@ -1,6 +1,5 @@
 package com.johannad.appStel.entity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,6 +14,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class User implements Serializable {
 
     @Id
@@ -26,10 +26,32 @@ public class User implements Serializable {
 
     @Column(name = "contrasena", length = 15)
     private String contrasena; // Contraseña del usuario
+    //Normalización
+    @Column(name = "nombre", length = 35)
+    private String nombre;
+
+    @Column(name = "cedula")
+    private int cedula;
+
+    @Column(name = "celular", length = 11)
+    private long celular;
 
     @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "fkid_rol")
     private Role role;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "user")
+    private List<Resident> resident;
+
+    @JsonManagedReference
+    @OneToMany (mappedBy = "user")
+    private List<Worker> worker;
+
+    @JsonManagedReference
+    @OneToMany (mappedBy = "user")
+    private List<Visitor> visitor;
 }
+
 

@@ -34,10 +34,6 @@ public class PropertyBusiness {
             if (resident != null){
                 ResidentDto residentDto = new ResidentDto();
                 residentDto.setId(resident.getId());
-                residentDto.setNomResidente(resident.getNomResidente());
-                residentDto.setCedResidente(resident.getCedResidente());
-                residentDto.setEmaResidente(resident.getEmaResidente());
-                residentDto.setCelResidente(resident.getCelResidente());
                 residentDto.setNumIntegrantes(resident.getNumIntegrantes());
                 propertyDto.setResident(residentDto);
             }
@@ -59,10 +55,6 @@ public class PropertyBusiness {
         if (residentDto != null) {
             Resident resident = new Resident();
             resident.setId(residentDto.getId());
-            resident.setNomResidente(residentDto.getNomResidente());
-            resident.setCedResidente(residentDto.getCedResidente());
-            resident.setEmaResidente(residentDto.getEmaResidente());
-            resident.setCelResidente(residentDto.getCelResidente());
             resident.setNumIntegrantes(residentDto.getNumIntegrantes());
             property.setResident(resident);
         }
@@ -77,10 +69,6 @@ public class PropertyBusiness {
         if (resident != null){
             residentDto = new ResidentDto();
             residentDto.setId(resident.getId());
-            residentDto.setNomResidente(resident.getNomResidente());
-            residentDto.setCedResidente(resident.getCedResidente());
-            residentDto.setEmaResidente(resident.getEmaResidente());
-            residentDto.setCelResidente(resident.getCelResidente());
             residentDto.setNumIntegrantes(resident.getNumIntegrantes());
             createdPropertyDto.setResident(residentDto);
         }
@@ -105,10 +93,6 @@ public class PropertyBusiness {
                 existingResident = new Resident();
             }
             existingResident.setId(residentDto.getId());
-            existingResident.setNomResidente(residentDto.getNomResidente());
-            existingResident.setCedResidente(residentDto.getCedResidente());
-            existingResident.setEmaResidente(residentDto.getEmaResidente());
-            existingResident.setCelResidente(residentDto.getCelResidente());
             existingResident.setNumIntegrantes(residentDto.getNumIntegrantes());
 
             existingProperty.setResident(existingResident);

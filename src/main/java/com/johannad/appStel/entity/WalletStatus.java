@@ -27,6 +27,7 @@ public class WalletStatus implements Serializable {
     @Column(name = "noti_estcartera", length = 35)
     String notiestcartera; //Notificar al residente
 
+
     //Llaves foraneas
     //fkidInmueble
     @JsonManagedReference
