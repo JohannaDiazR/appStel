@@ -22,6 +22,10 @@ public class Visitor implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(name = "nom_visitante", length = 35)
+    private String nomVisitante;
+    @Column(name = "cedula", length = 10)
+    private int cedula;
     @Column(name = "nom_residente", length = 35)
     private String nomResidente; // Nombre del residente
 
@@ -35,22 +39,22 @@ public class Visitor implements Serializable {
     private Date fecVisitante; // Fecha ingreso del visitante
 
     @JsonManagedReference
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fkid_trabajador")
     private Worker worker;
 
     @JsonManagedReference
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn (name = "fkid_parqueadero")
     private Parking parking;
 
     @JsonManagedReference
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fkid_inmueble")
     private Property property;
 
-    @JsonBackReference
-    @ManyToOne
+    /*@JsonBackReference
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name= "fkid_user")
-    private User user;
+    private User user;*/
 }

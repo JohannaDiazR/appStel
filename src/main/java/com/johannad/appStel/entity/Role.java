@@ -22,20 +22,21 @@ public class Role implements Serializable{
     @Column(name = "nombre_Rol", length = 30)//Rol
     private String nombreRol;
 
-    @JsonBackReference
-    @ManyToMany(mappedBy = "roleList", fetch = FetchType.LAZY)
-    private List<News> newList;
+
 
     @JsonBackReference
-    @OneToMany(mappedBy = "role")
+    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
     private List<User> userList;
 
     @JsonBackReference
-    @OneToMany (mappedBy = "role")
+    @OneToMany (mappedBy = "role", fetch = FetchType.LAZY)
     private List<Worker> workerList;
 
     @JsonBackReference
-    @OneToMany (mappedBy = "role")
+    @OneToMany (mappedBy = "role", fetch = FetchType.LAZY)
     private List<Resident> residentList;
 
+    @JsonBackReference
+    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
+    private List<News> newsList;
 }

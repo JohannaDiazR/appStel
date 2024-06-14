@@ -18,4 +18,6 @@ public class NewsDto {
     private Date fecNovedades;
     private String resNovedades;
     private String estNovedades;
+
+    private RoleDto role;
 }

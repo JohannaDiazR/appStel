@@ -34,12 +34,14 @@ public class Fine implements Serializable {
     //Foraneas
     //fkidInmueble
     @JsonManagedReference
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn (name = "fkid_inmueble")
     private Property property;
     //fkidTrabajador
     @JsonManagedReference
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn (name = "fkid_trabajador")
     private Worker worker;
+
+
 }

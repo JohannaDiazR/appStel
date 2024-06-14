@@ -16,7 +16,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Resident implements Serializable{
+public class Resident implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -25,22 +25,23 @@ public class Resident implements Serializable{
     private int numIntegrantes;
 
     @JsonManagedReference
-    @ManyToOne
-    @JoinColumn (name = "fkid_parqueadero")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fkid_parqueadero")
     private Parking parking;
 
     @JsonManagedReference
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fkid_rol")
     private Role role;
 
-    @JsonBackReference
-    @OneToMany (mappedBy = "resident")
-    private List<Property> propertyList;
-
 
     @JsonBackReference
-    @ManyToOne
-    @JoinColumn(name= "fkid_user")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fkid_user")
     private User user;
+
+    @JsonBackReference
+    @OneToMany(mappedBy = "resident",fetch = FetchType.LAZY)
+    private List<Property> propertyList;
 }
+

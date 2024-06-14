@@ -22,8 +22,9 @@ public class WalletStatus implements Serializable {
     int id;
     @Column(name = "est_cartera", length = 30)
     String estcartera; //estado de cartera mora//paz y salvo
-    @Column(name = "tacc_estcartera", length = 20)
-    String taccestcartera; //tipo de acceso permitido/bloqueado
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "fec_estcartera")
+    Date fecestcartera;
     @Column(name = "noti_estcartera", length = 35)
     String notiestcartera; //Notificar al residente
 
@@ -31,13 +32,13 @@ public class WalletStatus implements Serializable {
     //Llaves foraneas
     //fkidInmueble
     @JsonManagedReference
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fkid_inmueble")
     private Property property;
 
     //fkidTrabajador
     @JsonManagedReference
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fkid_trabajador")
     private Worker worker;
 }

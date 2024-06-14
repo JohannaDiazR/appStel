@@ -2,31 +2,23 @@ package com.johannad.appStel.business;
 
 import com.johannad.appStel.dtos.*;
 import com.johannad.appStel.entity.*;
-import com.johannad.appStel.service.RoleService;
-import com.johannad.appStel.service.VisitorService;
-import com.johannad.appStel.service.WalletStatusService;
-import com.johannad.appStel.service.WorkerService;
-import com.sun.jdi.PrimitiveValue;
-import jakarta.persistence.metamodel.SingularAttribute;
+import com.johannad.appStel.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.stereotype.Component;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
-
 public class WorkerBusiness {
 
     @Autowired
     private WorkerService workerService;
     @Autowired
     private RoleService roleService;
-
+    @Autowired
+    private UserService userService;
     private List<Worker> workerList;
-
 
     public List<WorkerDto> findAll() throws Exception {
         this.workerList = this.workerService.findAll();
@@ -36,14 +28,15 @@ public class WorkerBusiness {
             workerDto.setId(worker.getId());
 
             Role role = worker.getRole();
-            if (role != null){
+            if (role != null) {
                 RoleDto roleDto = new RoleDto();
                 roleDto.setId(role.getId());
                 roleDto.setNombreRol(role.getNombreRol());
                 workerDto.setRole(roleDto);
             }
+
             User user = worker.getUser();
-            if (user != null){
+            if (user != null) {
                 UserDto userDto = new UserDto();
                 userDto.setId(user.getId());
                 userDto.setUsuario(user.getUsuario());
@@ -61,7 +54,8 @@ public class WorkerBusiness {
         });
         return workerDtoList;
     }
-    //POST
+
+    // POST
     public WorkerDto create(WorkerDto workerDto) throws Exception {
         Worker worker = new Worker();
         worker.setTpcoTrabajador(workerDto.getTpcoTrabajador());
@@ -70,53 +64,50 @@ public class WorkerBusiness {
 
         RoleDto roleDto = workerDto.getRole();
         if (roleDto != null) {
-            Role role = new Role();
-            role.setId(roleDto.getId());
-            role.setNombreRol(roleDto.getNombreRol());
+            Role role = roleService.findById(roleDto.getId());
             worker.setRole(role);
         }
+
         UserDto userDto = workerDto.getUser();
         if (userDto != null) {
-            User user = new User();
-            user.setId(userDto.getId());
-            user.setUsuario(userDto.getUsuario());
-            user.setContrasena(userDto.getContrasena());
-            user.setNombre(userDto.getNombre());
-            user.setCedula(userDto.getCedula());
-            user.setCelular(userDto.getCelular());
+            User user = userService.findById(userDto.getId());
+            if (user == null) {
+                throw new Exception("User not found");
+            }
             worker.setUser(user);
         }
 
         Worker createdWorker = workerService.create(worker);
         WorkerDto createdWorkerDto = new WorkerDto();
         createdWorkerDto.setId(createdWorker.getId());
-
-        Role createdRole = createdWorker.getRole();
-        if (createdRole != null) {
-            RoleDto createdRoleDto = new RoleDto();
-            createdRoleDto.setId(createdRole.getId());
-            createdRoleDto.setNombreRol(createdRole.getNombreRol());
-            createdWorkerDto.setRole(createdRoleDto);
-        }
-        UserDto createdUserDto = new UserDto();
-        User createdUser = createdWorker.getUser();
-        if (createdUser != null) {
-            createdUserDto.setId(createdUser.getId());
-            createdUserDto.setUsuario(createdUser.getUsuario());
-            createdUserDto.setContrasena(createdUser.getContrasena());
-            createdUserDto.setNombre(createdUser.getNombre());
-            createdUserDto.setCedula(createdUser.getCedula());
-            createdUserDto.setCelular(createdUser.getCelular());
-            createdWorkerDto.setUser(createdUserDto);
-        }
-
         createdWorkerDto.setTpcoTrabajador(createdWorker.getTpcoTrabajador());
         createdWorkerDto.setCargTrabajador(createdWorker.getCargTrabajador());
         createdWorkerDto.setEmpTrabajador(createdWorker.getEmpTrabajador());
 
+        Role role = createdWorker.getRole();
+        if (role != null) {
+            RoleDto createdRoleDto = new RoleDto();
+            createdRoleDto.setId(role.getId());
+            createdRoleDto.setNombreRol(role.getNombreRol());
+            createdWorkerDto.setRole(createdRoleDto);
+        }
+
+        User user = createdWorker.getUser();
+        if (user != null) {
+            UserDto createdUserDto = new UserDto();
+            createdUserDto.setId(user.getId());
+            createdUserDto.setUsuario(user.getUsuario());
+            createdUserDto.setContrasena(user.getContrasena());
+            createdUserDto.setNombre(user.getNombre());
+            createdUserDto.setCedula(user.getCedula());
+            createdUserDto.setCelular(user.getCelular());
+            createdWorkerDto.setUser(createdUserDto);
+        }
+
         return createdWorkerDto;
     }
-    //PUT
+
+    // PUT
     public void update(WorkerDto workerDto, int id) throws Exception {
         Worker existingWorker = workerService.findById(id);
         if (existingWorker == null) {
@@ -129,27 +120,20 @@ public class WorkerBusiness {
 
         RoleDto roleDto = workerDto.getRole();
         if (roleDto != null) {
-            Role existingRole = existingWorker.getRole();
-            if (existingRole == null) {
-                existingRole = new Role();
+            Role role = roleService.findById(roleDto.getId());
+            if (role == null) {
+                throw new Exception("Role not found");
             }
-            existingRole.setId(roleDto.getId());
-            existingRole.setNombreRol(roleDto.getNombreRol());
-            existingWorker.setRole(existingRole);
+            existingWorker.setRole(role);
         }
+
         UserDto userDto = workerDto.getUser();
         if (userDto != null) {
-            User existingUser = existingWorker.getUser();
-            if (existingUser == null){
-                existingUser = new User();
+            User user = userService.findById(userDto.getId());
+            if (user == null) {
+                throw new Exception("User not found");
             }
-            existingUser.setId(userDto.getId());
-            existingUser.setUsuario(userDto.getUsuario());
-            existingUser.setContrasena(userDto.getContrasena());
-            existingUser.setNombre(userDto.getNombre());
-            existingUser.setCedula(userDto.getCedula());
-            existingUser.setCelular(userDto.getCelular());
-            existingWorker.setUser(existingUser);
+            existingWorker.setUser(user);
         }
 
         workerService.update(existingWorker);

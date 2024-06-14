@@ -5,13 +5,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class WalletStatusDto {
     private int id;
     private String estcartera;
-    private String taccestcartera;
+    private Date fecestcartera;
     private String notiestcartera;
 
     @JsonIgnoreProperties({"resident"})

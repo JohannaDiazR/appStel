@@ -29,29 +29,29 @@ public class Worker  implements Serializable{
     String empTrabajador; //Nombre de la empresa
 
     @JsonBackReference
-    @OneToMany (mappedBy = "worker")
+    @OneToMany (mappedBy = "worker", fetch = FetchType.LAZY)
     private List<Correspondence> correspondenceList;
 
     @JsonBackReference
-    @OneToMany (mappedBy = "worker")
+    @OneToMany (mappedBy = "worker", fetch = FetchType.LAZY)
     private List<Visitor> visitorList;
 
     @JsonBackReference
-    @OneToMany (mappedBy = "worker")
+    @OneToMany (mappedBy = "worker", fetch = FetchType.LAZY)
     private List<Fine> fineList;
 
     @JsonBackReference
-    @OneToMany (mappedBy = "worker")
+    @OneToMany (mappedBy = "worker", fetch = FetchType.LAZY)
     private List<WalletStatus> walletStatusList;
 
     @JsonManagedReference
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fkid_rol")
     private Role role;
 
    @JsonBackReference
-    @ManyToOne
-    @JoinColumn(name= "fkid_user")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fkid_user")
     private User user;
 
 

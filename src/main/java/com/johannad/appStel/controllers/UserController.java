@@ -2,13 +2,6 @@ package com.johannad.appStel.controllers;
 
 import com.johannad.appStel.business.UserBusiness;
 import com.johannad.appStel.dtos.UserDto;
-import com.johannad.appStel.dtos.WorkerDto;
-import com.johannad.appStel.entity.Resident;
-import com.johannad.appStel.entity.Role;
-import com.johannad.appStel.entity.User;
-import com.johannad.appStel.entity.Visitor;
-import com.johannad.appStel.service.UserService;
-import com.johannad.appStel.service.imp.UserImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -28,28 +28,27 @@ public class Property implements Serializable {
     private int numInmueble;
 
     @JsonBackReference
-    @OneToMany (mappedBy = "property")
+    @OneToMany (mappedBy = "property", fetch = FetchType.LAZY)
     private  List<Fine> fineList;
 
     @JsonBackReference
-    @OneToMany (mappedBy = "property")
+    @OneToMany (mappedBy = "property", fetch = FetchType.LAZY)
     private List<WalletStatus> walletStatusList;
 
     @JsonBackReference
-    @OneToMany (mappedBy = "property")
+    @OneToMany (mappedBy = "property", fetch = FetchType.LAZY)
     private List<Visitor> visitorList;
 
-    @JsonManagedReference
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "Property_Correspondence",
-            joinColumns = @JoinColumn(name = "fkid_inmueble", nullable = false),
-            inverseJoinColumns = @JoinColumn(name = "fkid_correspondencia", nullable = false)
-    )
-    private List<Correspondence> correspondence;
 
     @JsonManagedReference
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fkid_residente")
     private Resident resident;
+
+    @JsonBackReference
+    @OneToMany (mappedBy = "property",fetch = FetchType.LAZY)
+    private  List<Correspondence> correspondenceList;
+
+
+
 }

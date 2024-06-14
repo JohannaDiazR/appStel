@@ -2,12 +2,12 @@ package com.johannad.appStel.business;
 
 import com.johannad.appStel.dtos.PropertyDto;
 import com.johannad.appStel.dtos.ResidentDto;
-import com.johannad.appStel.dtos.WalletStatusDto;
 import com.johannad.appStel.entity.Property;
 import com.johannad.appStel.entity.Resident;
-import com.johannad.appStel.entity.WalletStatus;
+import com.johannad.appStel.entity.User;
 import com.johannad.appStel.service.PropertyService;
 import com.johannad.appStel.service.ResidentService;
+import com.johannad.appStel.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,33 +19,49 @@ public class PropertyBusiness {
 
     @Autowired
     private PropertyService propertyService;
+
     @Autowired
     private ResidentService residentService;
+
+    @Autowired
+    private UserService userService;
+
     private List<Property> propertyList;
 
     public List<PropertyDto> findAll() throws Exception {
         this.propertyList = this.propertyService.findAll();
         List<PropertyDto> propertyDtoList = new ArrayList<>();
-        this.propertyList.forEach(property -> {
+
+        for (Property property : this.propertyList) {
             PropertyDto propertyDto = new PropertyDto();
             propertyDto.setId(property.getId());
+            propertyDto.setAndInmueble(property.getAndInmueble());
+            propertyDto.setNumInmueble(property.getNumInmueble());
 
             Resident resident = property.getResident();
-            if (resident != null){
+            if (resident != null) {
                 ResidentDto residentDto = new ResidentDto();
                 residentDto.setId(resident.getId());
                 residentDto.setNumIntegrantes(resident.getNumIntegrantes());
+
+                // Obtener el usuario asociado al residente
+                User user = resident.getUser();
+                if (user != null) {
+                    residentDto.setUserName(user.getNombre());
+                    residentDto.setUserCedula(user.getCedula());
+                }
+
                 propertyDto.setResident(residentDto);
             }
 
-            propertyDto.setAndInmueble(property.getAndInmueble());
-            propertyDto.setNumInmueble(property.getNumInmueble());
             propertyDtoList.add(propertyDto);
-        });
+        }
         return propertyDtoList;
     }
 
-    // POST
+    /**
+     * Método para crear un nuevo inmueble con la información del residente y usuario asociados.
+     */
     public PropertyDto create(PropertyDto propertyDto) throws Exception {
         Property property = new Property();
         property.setAndInmueble(propertyDto.getAndInmueble());
@@ -56,6 +72,14 @@ public class PropertyBusiness {
             Resident resident = new Resident();
             resident.setId(residentDto.getId());
             resident.setNumIntegrantes(residentDto.getNumIntegrantes());
+
+            // Buscar y asignar el usuario al residente si se proporciona ID o información relevante
+            if (residentDto.getId() != 0) {
+                User user = userService.findById(residentDto.getId()); // Ajusta esto según cómo obtienes el usuario
+                if (user != null) {
+                    resident.setUser(user);
+                }
+            }
             property.setResident(resident);
         }
 
@@ -66,17 +90,26 @@ public class PropertyBusiness {
         createdPropertyDto.setNumInmueble(createdProperty.getNumInmueble());
 
         Resident resident = createdProperty.getResident();
-        if (resident != null){
+        if (resident != null) {
             residentDto = new ResidentDto();
             residentDto.setId(resident.getId());
             residentDto.setNumIntegrantes(resident.getNumIntegrantes());
+
+            // Agregar información del usuario
+            User user = resident.getUser();
+            if (user != null) {
+                residentDto.setUserName(user.getNombre());
+                residentDto.setUserCedula(user.getCedula());
+            }
+
             createdPropertyDto.setResident(residentDto);
         }
         return createdPropertyDto;
-
     }
 
-    // PUT
+    /**
+     * Método para actualizar la información de un inmueble existente.
+     */
     public void update(PropertyDto propertyDto, int id) throws Exception {
         Property existingProperty = propertyService.findById(id);
         if (existingProperty == null) {
@@ -89,11 +122,16 @@ public class PropertyBusiness {
         ResidentDto residentDto = propertyDto.getResident();
         if (residentDto != null) {
             Resident existingResident = existingProperty.getResident();
-            if (existingResident == null){
+            if (existingResident == null) {
                 existingResident = new Resident();
             }
             existingResident.setId(residentDto.getId());
             existingResident.setNumIntegrantes(residentDto.getNumIntegrantes());
+
+            User user = userService.findById(residentDto.getId());
+            if (user != null) {
+                existingResident.setUser(user);
+            }
 
             existingProperty.setResident(existingResident);
         }
@@ -101,6 +139,9 @@ public class PropertyBusiness {
         propertyService.update(existingProperty);
     }
 
+    /**
+     * Método para eliminar un inmueble.
+     */
     public void delete(int id) throws Exception {
         Property existingProperty = propertyService.findById(id);
         if (existingProperty == null) {
@@ -110,5 +151,3 @@ public class PropertyBusiness {
         propertyService.delete(existingProperty);
     }
 }
-
-

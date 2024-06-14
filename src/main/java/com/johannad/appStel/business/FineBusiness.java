@@ -5,9 +5,11 @@ import com.johannad.appStel.dtos.PropertyDto;
 import com.johannad.appStel.dtos.WorkerDto;
 import com.johannad.appStel.entity.Fine;
 import com.johannad.appStel.entity.Property;
+import com.johannad.appStel.entity.User;
 import com.johannad.appStel.entity.Worker;
 import com.johannad.appStel.service.FineService;
 import com.johannad.appStel.service.PropertyService;
+import com.johannad.appStel.service.UserService;
 import com.johannad.appStel.service.WorkerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,22 +19,35 @@ import java.util.List;
 
 @Component
 public class FineBusiness {
+
     @Autowired
     private FineService fineService;
+
     @Autowired
     private PropertyService propertyService;
+
     @Autowired
     private WorkerService workerService;
 
-    private List<Fine> fineList;
+    @Autowired
+    private UserService userService;
 
+    /**
+     * Método para obtener todas las multas.
+     */
     public List<FineDto> findAll() throws Exception {
-        this.fineList = this.fineService.findAll();
+        List<Fine> fineList = fineService.findAll();
         List<FineDto> fineDtoList = new ArrayList<>();
-        this.fineList.forEach(fine -> {
+
+        for (Fine fine : fineList) {
             FineDto fineDto = new FineDto();
             fineDto.setId(fine.getId());
+            fineDto.setTipoMulta(fine.getTipoMulta());
+            fineDto.setFecMulta(fine.getFecMulta());
+            fineDto.setValMulta(fine.getValMulta());
+            fineDto.setFpagMulta(fine.getFpagMulta());
 
+            // Mapeo de la propiedad
             Property property = fine.getProperty();
             if (property != null) {
                 PropertyDto propertyDto = new PropertyDto();
@@ -42,6 +57,7 @@ public class FineBusiness {
                 fineDto.setProperty(propertyDto);
             }
 
+            // Mapeo del trabajador y el usuario asociado
             Worker worker = fine.getWorker();
             if (worker != null) {
                 WorkerDto workerDto = new WorkerDto();
@@ -49,19 +65,24 @@ public class FineBusiness {
                 workerDto.setTpcoTrabajador(worker.getTpcoTrabajador());
                 workerDto.setCargTrabajador(worker.getCargTrabajador());
                 workerDto.setEmpTrabajador(worker.getEmpTrabajador());
+
+                User user = worker.getUser();
+                if (user != null) {
+                    workerDto.setUserName(user.getNombre());
+                    workerDto.setUserCedula(user.getCedula());
+                }
+
                 fineDto.setWorker(workerDto);
             }
 
-            fineDto.setTipoMulta(fine.getTipoMulta());
-            fineDto.setFecMulta(fine.getFecMulta());
-            fineDto.setValMulta(fine.getValMulta());
-            fineDto.setFpagMulta(fine.getFpagMulta());
             fineDtoList.add(fineDto);
-        });
+        }
         return fineDtoList;
     }
 
-    // POST
+    /**
+     * Método para crear una nueva multa.
+     */
     public FineDto create(FineDto fineDto) throws Exception {
         Fine fine = new Fine();
         fine.setTipoMulta(fineDto.getTipoMulta());
@@ -69,26 +90,26 @@ public class FineBusiness {
         fine.setValMulta(fineDto.getValMulta());
         fine.setFpagMulta(fineDto.getFpagMulta());
 
+        // Asignar la propiedad si está presente en el DTO
         PropertyDto propertyDto = fineDto.getProperty();
         if (propertyDto != null) {
-            Property property = new Property();
-            property.setId(propertyDto.getId());
-            property.setAndInmueble(propertyDto.getAndInmueble());
-            property.setNumInmueble(propertyDto.getNumInmueble());
+            Property property = propertyService.findById(propertyDto.getId());
             fine.setProperty(property);
         }
 
+        // Asignar el trabajador si está presente en el DTO
         WorkerDto workerDto = fineDto.getWorker();
         if (workerDto != null) {
-            Worker worker = new Worker();
-            worker.setId(workerDto.getId());
-            worker.setTpcoTrabajador(workerDto.getTpcoTrabajador());
-            worker.setCargTrabajador(workerDto.getCargTrabajador());
-            worker.setEmpTrabajador(workerDto.getEmpTrabajador());
-            fine.setWorker(worker);
+            Worker worker = workerService.findById(workerDto.getId());
+            if (worker != null) {
+                fine.setWorker(worker);
+            }
         }
 
+        // Guardar la multa creada
         Fine createdFine = fineService.create(fine);
+
+        // Convertir la multa creada a FineDto para la respuesta
         FineDto createdFineDto = new FineDto();
         createdFineDto.setId(createdFine.getId());
         createdFineDto.setTipoMulta(createdFine.getTipoMulta());
@@ -96,27 +117,40 @@ public class FineBusiness {
         createdFineDto.setValMulta(createdFine.getValMulta());
         createdFineDto.setFpagMulta(createdFine.getFpagMulta());
 
+        // Asignar la propiedad al DTO si está presente en la multa creada
         Property property = createdFine.getProperty();
         if (property != null) {
-            propertyDto = new PropertyDto();
-            propertyDto.setId(property.getId());
-            propertyDto.setAndInmueble(property.getAndInmueble());
-            propertyDto.setNumInmueble(property.getNumInmueble());
-            createdFineDto.setProperty(propertyDto);
+            PropertyDto propertyDtoResp = new PropertyDto();
+            propertyDtoResp.setId(property.getId());
+            propertyDtoResp.setAndInmueble(property.getAndInmueble());
+            propertyDtoResp.setNumInmueble(property.getNumInmueble());
+            createdFineDto.setProperty(propertyDtoResp);
         }
+
+        // Asignar el trabajador al DTO si está presente en la multa creada
         Worker worker = createdFine.getWorker();
         if (worker != null) {
-            workerDto = new WorkerDto();
-            workerDto.setId(worker.getId());
-            workerDto.setTpcoTrabajador(worker.getTpcoTrabajador());
-            workerDto.setCargTrabajador(worker.getCargTrabajador());
-            workerDto.setEmpTrabajador(worker.getEmpTrabajador());
-            createdFineDto.setWorker(workerDto);
+            WorkerDto workerDtoResp = new WorkerDto();
+            workerDtoResp.setId(worker.getId());
+            workerDtoResp.setTpcoTrabajador(worker.getTpcoTrabajador());
+            workerDtoResp.setCargTrabajador(worker.getCargTrabajador());
+            workerDtoResp.setEmpTrabajador(worker.getEmpTrabajador());
+
+            User user = worker.getUser();
+            if (user != null) {
+                workerDtoResp.setUserName(user.getNombre());
+                workerDtoResp.setUserCedula(user.getCedula());
+            }
+
+            createdFineDto.setWorker(workerDtoResp);
         }
 
         return createdFineDto;
     }
-    // PUT
+
+    /**
+     * Método para actualizar una multa existente.
+     */
     public void update(FineDto fineDto, int id) throws Exception {
         Fine existingFine = fineService.findById(id);
         if (existingFine == null) {
@@ -130,31 +164,26 @@ public class FineBusiness {
 
         PropertyDto propertyDto = fineDto.getProperty();
         if (propertyDto != null) {
-            Property existingProperty = existingFine.getProperty();
-            if (existingProperty == null) {
-                existingProperty = new Property();
+            Property property = propertyService.findById(propertyDto.getId());
+            if (property != null) {
+                existingFine.setProperty(property);
             }
-            existingProperty.setId(propertyDto.getId());
-            existingProperty.setAndInmueble(propertyDto.getAndInmueble());
-            existingProperty.setNumInmueble(propertyDto.getNumInmueble());
-            existingFine.setProperty(existingProperty);
         }
 
         WorkerDto workerDto = fineDto.getWorker();
         if (workerDto != null) {
-            Worker existingWorker = existingFine.getWorker();
-            if (existingWorker == null) {
-                existingWorker = new Worker();
+            Worker worker = workerService.findById(workerDto.getId());
+            if (worker != null) {
+                existingFine.setWorker(worker);
             }
-            existingWorker.setId(workerDto.getId());
-            existingWorker.setTpcoTrabajador(workerDto.getTpcoTrabajador());
-            existingWorker.setCargTrabajador(workerDto.getCargTrabajador());
-            existingWorker.setEmpTrabajador(workerDto.getEmpTrabajador());
-            existingFine.setWorker(existingWorker);
         }
 
         fineService.update(existingFine);
     }
+
+    /**
+     * Método para eliminar una multa.
+     */
     public void delete(int id) throws Exception {
         Fine existingFine = fineService.findById(id);
         if (existingFine == null) {
@@ -163,5 +192,4 @@ public class FineBusiness {
 
         fineService.delete(existingFine);
     }
-
 }

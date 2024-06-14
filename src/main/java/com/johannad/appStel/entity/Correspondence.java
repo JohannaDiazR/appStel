@@ -34,12 +34,14 @@ public class Correspondence  implements Serializable{
     private Date fentrCorrespondencia; //Fecha en la que se entrega la correspondencia
 
     @JsonManagedReference
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fkid_trabajador")
     private Worker worker;
-    @JsonBackReference
-    @ManyToMany(mappedBy = "correspondence", fetch = FetchType.LAZY)
-    private List<Property> propertyList;
+
+    @JsonManagedReference
+    @ManyToOne(fetch =  FetchType.LAZY)
+    @JoinColumn(name = "fkid_inmueble")
+    private Property property;
 
 
 }

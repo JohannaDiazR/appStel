@@ -41,12 +41,8 @@ public class News implements Serializable {
     private String estNovedades;
 
     @JsonManagedReference
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "New_has_Role",
-            joinColumns = @JoinColumn(name = "fkid_novedades", nullable = false),
-            inverseJoinColumns = @JoinColumn(name = "fkid_rol", nullable = false)
-    )
-    private List<Role> roleList;
+   @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fkid_role")
+    private Role role;
 
 }

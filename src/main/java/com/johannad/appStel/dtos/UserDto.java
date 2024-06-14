@@ -18,5 +18,8 @@ public class UserDto {
     private long celular;
 
     private RoleDto role;
+    private ResidentDto resident;
+    private WorkerDto worker;
+    //private VisitorDto visitor;
 
 }

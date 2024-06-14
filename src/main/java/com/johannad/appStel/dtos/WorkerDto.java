@@ -17,6 +17,8 @@ public class WorkerDto {
     private String cargTrabajador;
     private String empTrabajador;
 
+    private String userName;
+    private int userCedula;
 
     private RoleDto role;
     private UserDto user;

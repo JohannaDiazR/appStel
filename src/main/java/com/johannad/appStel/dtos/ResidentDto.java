@@ -12,6 +12,9 @@ public class ResidentDto {
     private int id;
     private int numIntegrantes;
 
+    private String userName;
+    private int userCedula;
+
     private RoleDto role;
     private ParkingDto parking;
     private UserDto user;

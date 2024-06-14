@@ -17,5 +17,8 @@ public class ParkingDto {
     private String dvteParqueadero;
     private int cupParqueadero;
     private Date horaSalida;
-    private int tarParqueadero;
+
+    private int costParqueadero;
+
+    private RateDto rate;
 }

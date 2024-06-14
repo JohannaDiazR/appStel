@@ -1,6 +1,7 @@
 package com.johannad.appStel.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,21 +33,26 @@ public class Parking implements Serializable{
     @Column(name = "dvte_parqueadero", length = 45)
     private String dvteParqueadero;
 
-    @Column(name = "cup_parqueadero", length = 11)
+    @Column(name = "cup_parqueadero", length = 2)
     private int cupParqueadero;
 
     @Column(name = "hora_salida")
     private Date horaSalida;
 
-    @Column(name = "tar_parqueadero", length = 11)
-    private int tarParqueadero;
+    @Column(name = "costo_parqueadero", length = 5)
+    private int costParqueadero;
 
     @JsonBackReference
-    @OneToMany (mappedBy = "parking")
+    @OneToMany (mappedBy = "parking", fetch = FetchType.LAZY)
     private List<Resident> residentList;
 
     @JsonBackReference
-    @OneToMany (mappedBy = "parking")
+    @OneToMany (mappedBy = "parking", fetch = FetchType.LAZY)
     private List<Visitor> visitorList;
 
+
+    @JsonManagedReference
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fkid_rate")
+    private Rate rate;
 }

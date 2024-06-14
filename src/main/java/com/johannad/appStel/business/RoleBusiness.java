@@ -33,11 +33,10 @@ public class RoleBusiness {
     }
 
         /*
-        La clase rol solo tiene 4 roles
+        La clase rol solo tiene 3 roles
         1. Residente
         2. Administrador
         3. Vigilante
-        4. Todero
          */
 
     //POST

@@ -13,6 +13,6 @@ public class PropertyDto {
     private int id;
     private int andInmueble;
     private int numInmueble;
-    @JsonIgnoreProperties({"role", "parking"})
+    @JsonIgnoreProperties({"role", "parking","resident"})
     private ResidentDto resident;
 }

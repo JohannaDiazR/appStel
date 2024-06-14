@@ -12,6 +12,8 @@ import java.util.Date;
 @NoArgsConstructor
 public class VisitorDto {
     private int id;
+    private String nomVisitante;
+    private int cedula;
     private String nomResidente;
     private String carVisitante;
     private String ingrVisitante;
@@ -22,7 +24,7 @@ public class VisitorDto {
     @JsonIgnoreProperties({"resident"})
     private ParkingDto parking;
     private PropertyDto property;
-    private UserDto user;
+    //private UserDto user;
 
 
 }
