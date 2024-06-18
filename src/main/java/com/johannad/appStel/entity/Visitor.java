@@ -24,6 +24,8 @@ public class Visitor implements Serializable {
 
     @Column(name = "nom_visitante", length = 35)
     private String nomVisitante;
+    @Column (name = "tipo-Documento", length = 40)
+    private String tipoDoc;
     @Column(name = "cedula", length = 10)
     private int cedula;
     @Column(name = "nom_residente", length = 35)

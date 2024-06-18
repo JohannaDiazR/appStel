@@ -60,6 +60,7 @@ public class UserBusiness {
             userDto.setUsuario(user.getUsuario());
             userDto.setContrasena(user.getContrasena());
             userDto.setNombre(user.getNombre());
+            userDto.setTipoDoc(user.getTipoDoc());
             userDto.setCedula(user.getCedula());
             userDto.setCelular(user.getCelular());
             userDtoList.add(userDto);
@@ -73,6 +74,7 @@ public class UserBusiness {
         user.setUsuario(userDto.getUsuario());
         user.setContrasena(userDto.getContrasena());
         user.setNombre(userDto.getNombre());
+        user.setTipoDoc(userDto.getTipoDoc());
         user.setCedula(userDto.getCedula());
         user.setCelular(userDto.getCelular());
 
@@ -111,6 +113,7 @@ public class UserBusiness {
         createdUserDto.setUsuario(createdUser.getUsuario());
         createdUserDto.setContrasena(createdUser.getContrasena());
         createdUserDto.setNombre(createdUser.getNombre());
+        createdUserDto.setTipoDoc(createdUser.getTipoDoc());
         createdUserDto.setCedula(createdUser.getCedula());
         createdUserDto.setCelular(createdUser.getCelular());
 
@@ -152,6 +155,7 @@ public class UserBusiness {
         existingUser.setUsuario(userDto.getUsuario());
         existingUser.setContrasena(userDto.getContrasena());
         existingUser.setNombre(userDto.getNombre());
+        existingUser.setTipoDoc(userDto.getTipoDoc());
         existingUser.setCedula(userDto.getCedula());
         existingUser.setCelular(userDto.getCelular());
 

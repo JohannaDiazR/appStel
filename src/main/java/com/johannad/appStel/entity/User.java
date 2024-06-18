@@ -27,8 +27,11 @@
         @Column(name = "contrasena", length = 15)
         private String contrasena; // Contraseña del usuario
         //Normalización
-        @Column(name = "nombre", length = 35)
+        @Column(name = "nombre", length = 100)
         private String nombre;
+
+        @Column (name = "tipo-Documento", length = 40)
+        private String tipoDoc;
 
         @Column(name = "cedula")
         private int cedula;

@@ -14,6 +14,7 @@ public class UserDto {
     private String usuario;
     private String contrasena;
     private String nombre;
+    private String tipoDoc;
     private int cedula;
     private long celular;
 

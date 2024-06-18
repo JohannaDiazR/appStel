@@ -13,6 +13,7 @@ import java.util.Date;
 public class VisitorDto {
     private int id;
     private String nomVisitante;
+    private String tipoDoc;
     private int cedula;
     private String nomResidente;
     private String carVisitante;
