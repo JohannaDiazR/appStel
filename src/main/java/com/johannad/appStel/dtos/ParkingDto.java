@@ -20,5 +20,5 @@ public class ParkingDto {
 
     private int costParqueadero;
 
-    private RateDto rate;
+
 }

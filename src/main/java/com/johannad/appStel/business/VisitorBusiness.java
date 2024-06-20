@@ -57,6 +57,7 @@ public class VisitorBusiness {
                 parkingDto.setDvteParqueadero(parking.getDvteParqueadero());
                 parkingDto.setCupParqueadero(parking.getCupParqueadero());
                 parkingDto.setHoraSalida(parking.getHoraSalida());
+                parkingDto.setCostParqueadero(parking.getCostParqueadero());
                 visitorDto.setParking(parkingDto);
             }
             Property property = visitor.getProperty();
@@ -156,6 +157,7 @@ public class VisitorBusiness {
             createdParkingDto.setCupParqueadero(parking.getCupParqueadero());
             createdParkingDto.setHoraSalida(parking.getHoraSalida());
             //createdParkingDto.setTarParqueadero(parking.getTarParqueadero());
+            createdParkingDto.setCostParqueadero(parking.getCostParqueadero());
             createdVisitorDto.setParking(createdParkingDto);
         }
 
