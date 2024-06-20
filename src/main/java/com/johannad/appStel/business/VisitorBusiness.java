@@ -57,6 +57,7 @@ public class VisitorBusiness {
                 parkingDto.setDvteParqueadero(parking.getDvteParqueadero());
                 parkingDto.setCupParqueadero(parking.getCupParqueadero());
                 parkingDto.setHoraSalida(parking.getHoraSalida());
+                parkingDto.setCostParqueadero(parking.getCostParqueadero());
                 visitorDto.setParking(parkingDto);
             }
             Property property = visitor.getProperty();
@@ -68,6 +69,7 @@ public class VisitorBusiness {
                 visitorDto.setProperty(propertyDto);
             }
             visitorDto.setNomVisitante(visitor.getNomVisitante());
+            visitorDto.setTipoDoc(visitor.getTipoDoc());
             visitorDto.setCedula(visitor.getCedula());
             visitorDto.setNomResidente(visitor.getNomResidente());
             visitorDto.setCarVisitante(visitor.getCarVisitante());
@@ -83,6 +85,7 @@ public class VisitorBusiness {
     public VisitorDto create(VisitorDto visitorDto) throws Exception {
         Visitor visitor = new Visitor();
         visitor.setNomVisitante(visitorDto.getNomVisitante());
+        visitor.setTipoDoc(visitorDto.getTipoDoc());
         visitor.setCedula(visitorDto.getCedula());
         visitor.setNomResidente(visitorDto.getNomResidente());
         visitor.setCarVisitante(visitorDto.getCarVisitante());
@@ -118,6 +121,7 @@ public class VisitorBusiness {
         VisitorDto createdVisitorDto = new VisitorDto();
         createdVisitorDto.setId(createdVisitor.getId());
         createdVisitorDto.setNomVisitante(createdVisitor.getNomVisitante());
+        createdVisitorDto.setTipoDoc(createdVisitor.getTipoDoc());
         createdVisitorDto.setCedula(createdVisitor.getCedula());
         createdVisitorDto.setNomResidente(createdVisitor.getNomResidente());
         createdVisitorDto.setCarVisitante(createdVisitor.getCarVisitante());
@@ -153,6 +157,7 @@ public class VisitorBusiness {
             createdParkingDto.setCupParqueadero(parking.getCupParqueadero());
             createdParkingDto.setHoraSalida(parking.getHoraSalida());
             //createdParkingDto.setTarParqueadero(parking.getTarParqueadero());
+            createdParkingDto.setCostParqueadero(parking.getCostParqueadero());
             createdVisitorDto.setParking(createdParkingDto);
         }
 
@@ -176,6 +181,7 @@ public class VisitorBusiness {
             throw new Exception("Visitor not found");
         }
         existingVisitor.setNomVisitante(visitorDto.getNomVisitante());
+        existingVisitor.setTipoDoc(visitorDto.getTipoDoc());
         existingVisitor.setCedula(visitorDto.getCedula());
         existingVisitor.setNomResidente(visitorDto.getNomResidente());
         existingVisitor.setCarVisitante(visitorDto.getCarVisitante());
