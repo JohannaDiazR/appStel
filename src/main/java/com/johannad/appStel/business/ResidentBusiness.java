@@ -44,6 +44,7 @@ public class ResidentBusiness {
                 parkingDto.setCupParqueadero(parking.getCupParqueadero());
                 parkingDto.setHoraSalida(parking.getHoraSalida());
                 //parkingDto.setTarParqueadero(parking.getTarParqueadero());
+                parkingDto.setCostParqueadero(parking.getCostParqueadero());
                 residentDto.setParking(parkingDto);
             }
 
@@ -131,6 +132,7 @@ public class ResidentBusiness {
             createdParkingDto.setCupParqueadero(parking.getCupParqueadero());
             createdParkingDto.setHoraSalida(parking.getHoraSalida());
             //createdParkingDto.setTarParqueadero(parking.getTarParqueadero());
+            createdParkingDto.setCostParqueadero(parking.getCostParqueadero());
             createdResidentDto.setParking(createdParkingDto);
         }
         Role role = createdResident.getRole();
