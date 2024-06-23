@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-06-2024 a las 07:55:02
+-- Tiempo de generación: 20-06-2024 a las 04:25:46
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -24,28 +24,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `new_has_role`
---
-
-CREATE TABLE `new_has_role` (
-  `fkid_novedades` int(11) NOT NULL,
-  `fkid_rol` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `property_correspondence`
---
-
-CREATE TABLE `property_correspondence` (
-  `fkid_inmueble` int(11) NOT NULL,
-  `fkid_correspondencia` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `tbl_correspondencia`
 --
 
@@ -55,8 +33,18 @@ CREATE TABLE `tbl_correspondencia` (
   `est_correspondencia` varchar(20) DEFAULT NULL,
   `fentr_correspondencia` datetime(6) DEFAULT NULL,
   `frec_correspodencia` datetime(6) DEFAULT NULL,
-  `fkid_trabajador` int(11) DEFAULT NULL
+  `fkid_trabajador` int(11) DEFAULT NULL,
+  `fkid_inmueble` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `tbl_correspondencia`
+--
+
+INSERT INTO `tbl_correspondencia` (`id`, `tipo_correspondencia`, `est_correspondencia`, `fentr_correspondencia`, `frec_correspodencia`, `fkid_trabajador`, `fkid_inmueble`) VALUES
+(2, 'Sobre fragil', 'No entregado', NULL, '2024-06-10 19:00:00.000000', 1, 3),
+(4, 'Paquete urgente', 'No entregado', NULL, '2024-06-10 19:00:00.000000', 1, 6),
+(5, 'Recibo Gas', 'Entregado', '2024-06-11 19:00:00.000000', '2024-06-11 19:00:00.000000', 2, 4);
 
 -- --------------------------------------------------------
 
@@ -68,10 +56,18 @@ CREATE TABLE `tbl_estcartera` (
   `id` int(11) NOT NULL,
   `est_cartera` varchar(30) DEFAULT NULL,
   `noti_estcartera` varchar(35) DEFAULT NULL,
-  `tacc_estcartera` varchar(20) DEFAULT NULL,
+  `fec_estcartera` datetime(6) DEFAULT NULL,
   `fkid_inmueble` int(11) DEFAULT NULL,
   `fkid_trabajador` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `tbl_estcartera`
+--
+
+INSERT INTO `tbl_estcartera` (`id`, `est_cartera`, `noti_estcartera`, `fec_estcartera`, `fkid_inmueble`, `fkid_trabajador`) VALUES
+(1, 'Mora', 'Notificar residente', '2024-06-09 00:00:00.000000', 3, 3),
+(2, 'Paz y Salvo', 'Enviar certificado', '2024-06-16 19:00:00.000000', 1, 3);
 
 -- --------------------------------------------------------
 
@@ -86,6 +82,19 @@ CREATE TABLE `tbl_inmueble` (
   `fkid_residente` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `tbl_inmueble`
+--
+
+INSERT INTO `tbl_inmueble` (`id`, `and_inmueble`, `num_inmueble`, `fkid_residente`) VALUES
+(1, 1, 1, 1),
+(2, 1, 2, 2),
+(3, 1, 3, 3),
+(4, 1, 4, 4),
+(5, 1, 5, 5),
+(6, 1, 6, 11),
+(10, 1, 8, 6);
+
 -- --------------------------------------------------------
 
 --
@@ -94,13 +103,22 @@ CREATE TABLE `tbl_inmueble` (
 
 CREATE TABLE `tbl_multa` (
   `id` int(11) NOT NULL,
+  `fec_multa` datetime DEFAULT NULL,
+  `fpag_multa` datetime DEFAULT NULL,
   `tipo_multa` varchar(30) DEFAULT NULL,
-  `fec_multa` datetime(6) DEFAULT NULL,
   `val_multa` int(11) NOT NULL,
-  `fpag_multa` datetime(6) DEFAULT NULL,
   `fkid_inmueble` int(11) DEFAULT NULL,
   `fkid_trabajador` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `tbl_multa`
+--
+
+INSERT INTO `tbl_multa` (`id`, `fec_multa`, `fpag_multa`, `tipo_multa`, `val_multa`, `fkid_inmueble`, `fkid_trabajador`) VALUES
+(1, '2023-12-11 00:15:00', NULL, 'Ruido excesivo', 100000, 1, 3),
+(7, '2024-06-12 19:00:00', NULL, 'Ruido Excesivo', 80000, 6, 3),
+(9, '2024-06-11 19:00:00', '2024-07-05 19:00:00', 'Daños Al Conjunto', 100000, 3, 3);
 
 -- --------------------------------------------------------
 
@@ -110,14 +128,27 @@ CREATE TABLE `tbl_multa` (
 
 CREATE TABLE `tbl_novedades` (
   `id` int(11) NOT NULL,
+  `rem_novedades` varchar(30) DEFAULT NULL,
+  `tipo_novedad` varchar(45) DEFAULT NULL,
   `asunto_novedades` varchar(65) DEFAULT NULL,
   `desc_novedades` varchar(65) DEFAULT NULL,
   `est_novedades` varchar(25) DEFAULT NULL,
   `fec_novedades` datetime(6) DEFAULT NULL,
-  `rem_novedades` varchar(30) DEFAULT NULL,
   `res_novedades` varchar(30) DEFAULT NULL,
-  `tipo_novedad` varchar(45) DEFAULT NULL
+  `fkid_role` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `tbl_novedades`
+--
+
+INSERT INTO `tbl_novedades` (`id`, `rem_novedades`, `tipo_novedad`, `asunto_novedades`, `desc_novedades`, `est_novedades`, `fec_novedades`, `res_novedades`, `fkid_role`) VALUES
+(1, 'Juan Arauzo', 'zonas comunes', 'Lámpara rota', 'Falta iluminación anden 2', 'espera', '2024-06-17 16:07:00.000000', 'programar revisión', 2),
+(2, 'Carlos Guzman', 'mascotas', 'mascota sin correa', 'del inmueble 100', 'espera', '2024-06-17 18:08:00.000000', 'Hablar con el propietario', 2),
+(3, 'Jorge Cortes', 'parqueadero', 'carro rayado', 'solicito revisión camaras', 'espera', '2024-06-10 08:35:00.000000', 'Programar revisión', 2),
+(4, 'Alberto Dominguez', 'Residente', 'Problemas en el anden 2', 'exceso de ruido en inmueble 63', 'Atendida', '2024-06-09 13:13:12.000000', 'programar reunión', 2),
+(5, 'Carlos Perez', 'parqueadero', 'carro rayado', 'Revisar cámaras estan rayando carros', 'Espera', '2024-06-09 16:17:00.000000', 'Programar revisión cámaras', 3),
+(6, 'Rafael Casas', 'Vigilante', 'daños en el parque', 'Niños rompieron la escalera', 'Espera', '2024-06-11 10:08:00.000000', 'Revisar daños', 3);
 
 -- --------------------------------------------------------
 
@@ -133,8 +164,22 @@ CREATE TABLE `tbl_parqueadero` (
   `dvte_parqueadero` varchar(45) DEFAULT NULL,
   `cup_parqueadero` int(11) DEFAULT NULL,
   `hora_salida` datetime(6) DEFAULT NULL,
-  `tar_parqueadero` int(11) DEFAULT NULL
+  `costo_parqueadero` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `tbl_parqueadero`
+--
+
+INSERT INTO `tbl_parqueadero` (`id`, `tipo_parqueadero`, `estado_parqueadero`, `fec_parqueadero`, `dvte_parqueadero`, `cup_parqueadero`, `hora_salida`, `costo_parqueadero`) VALUES
+(5, 'carro-visitante', 'habilitado', '2024-06-19 08:18:00.000000', 'AWD-662 bmw negro', 1, '2024-06-19 12:18:00.000000', 0),
+(7, 'Carro-Visitante', 'Inhabilitado', '2024-06-13 15:51:00.000000', 'SDA-458 Logan Azul ', 2, '2024-06-13 17:53:00.000000', 4000),
+(8, 'carro-visitante', 'habilitado', '2024-06-19 11:19:00.000000', 'LAK-795 Mazda Rojo', 3, '2024-06-19 12:07:00.000000', 0),
+(9, 'moto-visitante', 'habilitado', '2024-06-19 10:17:00.000000', 'DFS-27F', 4, '2024-06-19 12:17:00.000000', 0),
+(10, 'Carro-propietario', 'inhabilitado', '2023-09-20 05:38:00.000000', 'XSG456 Sail rojo', 22, NULL, 50000),
+(11, 'moto-visitante', 'habilitado', '2024-06-19 16:20:00.000000', 'DZR-413 Kwid Negro', 5, '2024-06-19 20:20:00.000000', 0),
+(12, 'moto-visitante', 'habilitado', '2024-06-18 18:00:00.000000', 'SGD-123D Rojo', 7, '2024-06-18 19:01:00.000000', 0),
+(13, 'carro-propietario', 'habilitado', '2024-06-18 18:09:00.000000', 'GDA-462 SANDERO GRIS', 6, '2024-06-18 18:28:00.000000', 50000);
 
 -- --------------------------------------------------------
 
@@ -155,7 +200,15 @@ CREATE TABLE `tbl_residente` (
 --
 
 INSERT INTO `tbl_residente` (`id`, `num_integrantes`, `fkid_parqueadero`, `fkid_rol`, `fkid_user`) VALUES
-(2, 3, NULL, 2, 3);
+(1, 3, NULL, 2, 2),
+(2, 4, NULL, 2, 3),
+(3, 3, NULL, 2, 4),
+(4, 2, NULL, 2, 5),
+(5, 4, NULL, 2, 6),
+(6, 1, NULL, 2, 11),
+(11, 4, NULL, 2, 9),
+(12, 2, NULL, 2, 10),
+(13, 3, NULL, 2, 13);
 
 -- --------------------------------------------------------
 
@@ -197,8 +250,9 @@ CREATE TABLE `tbl_trabajador` (
 --
 
 INSERT INTO `tbl_trabajador` (`id`, `tpco_trabajador`, `carg_trabajador`, `emp_trabajador`, `fkid_rol`, `fkid_user`) VALUES
-(1, 'Prestación de servicios', 'Administrador', 'admins', 1, 1),
-(2, 'Fijo', 'Vigilante', 'vigias Colombia', 3, 2);
+(1, 'Fijo', 'Vigilante', 'Porvenir', 3, 7),
+(2, 'Indefinido', 'Vigilante', 'Vigias', 3, 8),
+(3, 'Prestación de Servicios', 'Administrador', 'Administradores Colombia', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -213,20 +267,30 @@ CREATE TABLE `tbl_usuarios` (
   `nombre` varchar(35) DEFAULT NULL,
   `cedula` int(11) DEFAULT NULL,
   `celular` bigint(20) DEFAULT NULL,
-  `fkid_rol` int(11) DEFAULT NULL
+  `fkid_rol` int(11) DEFAULT NULL,
+  `tipo-documento` varchar(40) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `tbl_usuarios`
 --
 
-INSERT INTO `tbl_usuarios` (`id`, `usuario`, `contrasena`, `nombre`, `cedula`, `celular`, `fkid_rol`) VALUES
-(1, 'albaamaya@gmail.com', '@lb4m!3af', 'Alba Amaya', 11345687, 3104521302, 1),
-(2, 'bentedder@gmail.com', 't3de4a!f', 'Benjamin Tedder', 1012354687, 3111036584, 3),
-(3, 'samuelliza@gmail.com', '5am6e!*l', 'Samuel Lizarralde', 1015411032, 3123504550, 2),
-(4, 'pablodelgado@gmail.com', 'P@bl0d3e', 'Pablo Delgado', 1013451320, 3103126548, 2),
-(5, 'laural@gmail.com', 'l4ural@L', 'Laura Alvarez', 1012465879, 3111254680, 2),
-(6, 'rafablas@gmail.com', 'R4f@blas', 'Rafael Blas', 1014548987, 3133256874, 3);
+INSERT INTO `tbl_usuarios` (`id`, `usuario`, `contrasena`, `nombre`, `cedula`, `celular`, `fkid_rol`, `tipo-documento`) VALUES
+(1, 'albaamaya@gmail.com', 'AL@8M3*l', 'Alba Amaya', 21374580, 3115462103, 1, 'Cédula de Ciudadanía'),
+(2, 'pabloguz@gmail.com', 'P@Bl0gu2', 'Pablo Guzman', 54125368, 3117844521, 2, 'Cédula de Ciudadanía'),
+(3, 'danrodriguez@gmail.com', 'D4Nir34!', 'Daniel Rodriguez', 60598795, 3123469877, 2, 'Cédula de Ciudadanía'),
+(4, 'samuelli@gmail.com', 'Sam23!l*', 'Samuel Lizarralde', 1011359874, 3131549874, 2, 'Cédula de Ciudadanía'),
+(5, 'pablodelgado@gmail.com', 'pAb8l!d3', 'Pablo Delgado', 1013456874, 3150654879, 2, 'Cédula de Ciudadanía'),
+(6, 'lorenzoli@gmail.com', 'Lor3l!9*', 'Lorenzo Linares', 56984652, 3107954620, 2, 'Cédula de Ciudadanía'),
+(7, 'rafablas@gmail.com', 'R4f@bl1s', 'Rafael Blas', 1103156486, 3134564532, 3, 'Cédula de Ciudadanía'),
+(8, 'gabrielang@gmail.com', 'Gab1!mg3', 'Gabriel Romero', 1110546213, 3119865431, 3, 'Cédula de Ciudadanía'),
+(9, 'santiagocarrero@gmail.com', '5@Nti!g0', 'Santiago Carrero', 40658987, 3114556879, 2, 'Cédula de Ciudadanía'),
+(10, 'carlosmeza@gmail.com', 'Car70!m3', 'Carlos Meza', 55315648, 3109788754, 2, 'Cédula de Ciudadanía'),
+(11, 'carlosadness@gmail.com', '(CGfh!Pb', 'Carlos Sadness', 816543211, 3109465231, 2, 'Cédula de Extranjeria'),
+(13, 'maryro@gmail.com', 'sLCPwcOx', 'Mary Rosales', 62356894, 3009465210, 2, 'Cédula de Ciudadanía'),
+(14, 'claredo@gmail.com', '{A[X[Qdu', 'Clare Dominguez', 15315464, 3105511223, 2, 'Cédula de Ciudadanía'),
+(15, 'daphne@gmail.com', '+c9RnkGJ', 'Daphne Ramirez', 54913672, 3207650589, 2, 'Cédula de Ciudadanía'),
+(16, 'emasal@gmail.com', 'S%PblFoe', 'Ema Salas', 43165106, 3019430977, 2, 'Cédula de Ciudadanía');
 
 -- --------------------------------------------------------
 
@@ -236,39 +300,42 @@ INSERT INTO `tbl_usuarios` (`id`, `usuario`, `contrasena`, `nombre`, `cedula`, `
 
 CREATE TABLE `tbl_visitantes` (
   `id` int(11) NOT NULL,
+  `nom_visitante` varchar(35) DEFAULT NULL,
+  `cedula` int(11) DEFAULT NULL,
   `nom_residente` varchar(35) DEFAULT NULL,
   `car_visitante` varchar(2) DEFAULT NULL,
   `ingr_visitante` varchar(2) DEFAULT NULL,
   `fec_visitante` datetime(6) DEFAULT NULL,
+  `fkid_trabajador` int(11) DEFAULT NULL,
   `fkid_parqueadero` int(11) DEFAULT NULL,
   `fkid_inmueble` int(11) DEFAULT NULL,
-  `fkid_user` int(11) DEFAULT NULL,
-  `fkid_trabajador` int(11) DEFAULT NULL
+  `tipo-documento` varchar(40) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `tbl_visitantes`
+--
+
+INSERT INTO `tbl_visitantes` (`id`, `nom_visitante`, `cedula`, `nom_residente`, `car_visitante`, `ingr_visitante`, `fec_visitante`, `fkid_trabajador`, `fkid_parqueadero`, `fkid_inmueble`, `tipo-documento`) VALUES
+(1, 'Enzo Rojas', 42398465, 'Francisco Rojas', 'no', 'si', '2024-06-09 00:00:00.000000', 1, NULL, 2, 'Cédula de Ciudadanía'),
+(2, 'Guido Torres', 1014364897, 'Alberto Torres', 'no', 'si', '2024-06-09 00:00:00.000000', 1, NULL, 3, 'Cédula de Ciudadanía'),
+(3, 'Juliana Salamanca', 1011459876, 'Judith Robledo', 'no', 'si', '2024-06-09 00:00:00.000000', 1, NULL, 1, 'Cédula de Ciudadanía'),
+(4, 'Noah López', 1013554221, 'Nicolas Valderrama', 'no', 'si', '2024-06-09 00:00:00.000000', 1, NULL, 2, 'Cédula de Ciudadanía'),
+(5, 'Laura Perez', 1001356890, 'Judith Robledo', 'no', 'si', '2024-06-09 00:00:00.000000', 1, NULL, 5, 'Cédula de Ciudadanía'),
+(7, 'Enzo Rojas', 1013365414, 'David Rios', 'si', 'si', '2024-06-11 19:00:00.000000', 2, 5, 2, 'Cédula de Ciudadanía'),
+(8, 'Clohe Rios', 1011445423, 'Francisco Rojas', 'si', 'si', '2024-06-13 19:00:00.000000', 2, 7, 6, 'Cédula de Ciudadanía'),
+(9, 'Guido Martinez', 1135649874, 'Carlos Mateo', 'no', 'si', '2024-06-13 19:00:00.000000', 1, NULL, 2, 'Cédula de Ciudadanía');
 
 --
 -- Índices para tablas volcadas
 --
 
 --
--- Indices de la tabla `new_has_role`
---
-ALTER TABLE `new_has_role`
-  ADD KEY `FKcj516a2s7ee9rxm34il4js20` (`fkid_rol`),
-  ADD KEY `FKavrel0867e1bcp1924adfmquw` (`fkid_novedades`);
-
---
--- Indices de la tabla `property_correspondence`
---
-ALTER TABLE `property_correspondence`
-  ADD KEY `FKasrj8e1cihlowrcsiu6hw5tmi` (`fkid_correspondencia`),
-  ADD KEY `FK2wa7hha45yviy2rpto6y4c0ba` (`fkid_inmueble`);
-
---
 -- Indices de la tabla `tbl_correspondencia`
 --
 ALTER TABLE `tbl_correspondencia`
   ADD PRIMARY KEY (`id`),
+  ADD KEY `FKq0m6ry1ppo69b18wtl43cs9yt` (`fkid_inmueble`),
   ADD KEY `FKd08be0l3jmxjjbr9rnlj8sjmp` (`fkid_trabajador`);
 
 --
@@ -298,7 +365,8 @@ ALTER TABLE `tbl_multa`
 -- Indices de la tabla `tbl_novedades`
 --
 ALTER TABLE `tbl_novedades`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FKmdqay70w3uqib68vfkysx4jd7` (`fkid_role`);
 
 --
 -- Indices de la tabla `tbl_parqueadero`
@@ -311,9 +379,9 @@ ALTER TABLE `tbl_parqueadero`
 --
 ALTER TABLE `tbl_residente`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `UK_7f8de6w726x37r0hvpsbx0kk8` (`fkid_user`),
   ADD KEY `FK8w3gesmftw8g8cug3qn74jxqk` (`fkid_parqueadero`),
-  ADD KEY `FK4tcet6lof1y7vu5qismynlmws` (`fkid_rol`),
-  ADD KEY `FKm4k2fg1yo8aju23aplwbteoit` (`fkid_user`);
+  ADD KEY `FK4tcet6lof1y7vu5qismynlmws` (`fkid_rol`);
 
 --
 -- Indices de la tabla `tbl_rol`
@@ -343,7 +411,6 @@ ALTER TABLE `tbl_visitantes`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FKsim7hyw3kbcv4y92jfq73g5r3` (`fkid_parqueadero`),
   ADD KEY `FKlfa3n6kyqjlb7su6hpblg65rk` (`fkid_inmueble`),
-  ADD KEY `FKpqdtnjppvfi32ggmdhh3bb9kd` (`fkid_user`),
   ADD KEY `FK84s7bxw8llyx2if0jj8kddxp5` (`fkid_trabajador`);
 
 --
@@ -354,43 +421,43 @@ ALTER TABLE `tbl_visitantes`
 -- AUTO_INCREMENT de la tabla `tbl_correspondencia`
 --
 ALTER TABLE `tbl_correspondencia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_estcartera`
 --
 ALTER TABLE `tbl_estcartera`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_inmueble`
 --
 ALTER TABLE `tbl_inmueble`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_multa`
 --
 ALTER TABLE `tbl_multa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_novedades`
 --
 ALTER TABLE `tbl_novedades`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_parqueadero`
 --
 ALTER TABLE `tbl_parqueadero`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_residente`
 --
 ALTER TABLE `tbl_residente`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_rol`
@@ -402,43 +469,30 @@ ALTER TABLE `tbl_rol`
 -- AUTO_INCREMENT de la tabla `tbl_trabajador`
 --
 ALTER TABLE `tbl_trabajador`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_usuarios`
 --
 ALTER TABLE `tbl_usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_visitantes`
 --
 ALTER TABLE `tbl_visitantes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Restricciones para tablas volcadas
 --
 
 --
--- Filtros para la tabla `new_has_role`
---
-ALTER TABLE `new_has_role`
-  ADD CONSTRAINT `FKavrel0867e1bcp1924adfmquw` FOREIGN KEY (`fkid_novedades`) REFERENCES `tbl_novedades` (`id`),
-  ADD CONSTRAINT `FKcj516a2s7ee9rxm34il4js20` FOREIGN KEY (`fkid_rol`) REFERENCES `tbl_rol` (`id`);
-
---
--- Filtros para la tabla `property_correspondence`
---
-ALTER TABLE `property_correspondence`
-  ADD CONSTRAINT `FK2wa7hha45yviy2rpto6y4c0ba` FOREIGN KEY (`fkid_inmueble`) REFERENCES `tbl_inmueble` (`id`),
-  ADD CONSTRAINT `FKasrj8e1cihlowrcsiu6hw5tmi` FOREIGN KEY (`fkid_correspondencia`) REFERENCES `tbl_correspondencia` (`id`);
-
---
 -- Filtros para la tabla `tbl_correspondencia`
 --
 ALTER TABLE `tbl_correspondencia`
-  ADD CONSTRAINT `FKd08be0l3jmxjjbr9rnlj8sjmp` FOREIGN KEY (`fkid_trabajador`) REFERENCES `tbl_trabajador` (`id`);
+  ADD CONSTRAINT `FKd08be0l3jmxjjbr9rnlj8sjmp` FOREIGN KEY (`fkid_trabajador`) REFERENCES `tbl_trabajador` (`id`),
+  ADD CONSTRAINT `FKq0m6ry1ppo69b18wtl43cs9yt` FOREIGN KEY (`fkid_inmueble`) REFERENCES `tbl_inmueble` (`id`);
 
 --
 -- Filtros para la tabla `tbl_estcartera`
@@ -459,6 +513,12 @@ ALTER TABLE `tbl_inmueble`
 ALTER TABLE `tbl_multa`
   ADD CONSTRAINT `FKh6e6h051h51r229y3ku265515` FOREIGN KEY (`fkid_inmueble`) REFERENCES `tbl_inmueble` (`id`),
   ADD CONSTRAINT `FKkji958iwl6u52ftmyhu5jlyht` FOREIGN KEY (`fkid_trabajador`) REFERENCES `tbl_trabajador` (`id`);
+
+--
+-- Filtros para la tabla `tbl_novedades`
+--
+ALTER TABLE `tbl_novedades`
+  ADD CONSTRAINT `FKmdqay70w3uqib68vfkysx4jd7` FOREIGN KEY (`fkid_role`) REFERENCES `tbl_rol` (`id`);
 
 --
 -- Filtros para la tabla `tbl_residente`
@@ -487,7 +547,6 @@ ALTER TABLE `tbl_usuarios`
 ALTER TABLE `tbl_visitantes`
   ADD CONSTRAINT `FK84s7bxw8llyx2if0jj8kddxp5` FOREIGN KEY (`fkid_trabajador`) REFERENCES `tbl_trabajador` (`id`),
   ADD CONSTRAINT `FKlfa3n6kyqjlb7su6hpblg65rk` FOREIGN KEY (`fkid_inmueble`) REFERENCES `tbl_inmueble` (`id`),
-  ADD CONSTRAINT `FKpqdtnjppvfi32ggmdhh3bb9kd` FOREIGN KEY (`fkid_user`) REFERENCES `tbl_usuarios` (`id`),
   ADD CONSTRAINT `FKsim7hyw3kbcv4y92jfq73g5r3` FOREIGN KEY (`fkid_parqueadero`) REFERENCES `tbl_parqueadero` (`id`);
 COMMIT;
 
