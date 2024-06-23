@@ -6,7 +6,6 @@ import com.johannad.appStel.service.ParkingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -19,12 +18,10 @@ public class ParkingBusiness {
     @Autowired
     private ParkingService parkingService;
 
-    private List<Parking> parkingList;
-
     public List<ParkingDto> findAll() throws Exception {
-        this.parkingList = this.parkingService.findAll();
+        List<Parking> parkingList = parkingService.findAll();
         List<ParkingDto> parkingDtoList = new ArrayList<>();
-        this.parkingList.forEach(parking -> {
+        for (Parking parking : parkingList) {
             ParkingDto parkingDto = new ParkingDto();
             parkingDto.setId(parking.getId());
             parkingDto.setTipoParqueadero(parking.getTipoParqueadero());
@@ -34,9 +31,8 @@ public class ParkingBusiness {
             parkingDto.setCupParqueadero(parking.getCupParqueadero());
             parkingDto.setHoraSalida(parking.getHoraSalida());
             parkingDto.setCostParqueadero(parking.getCostParqueadero());
-
             parkingDtoList.add(parkingDto);
-        });
+        }
         return parkingDtoList;
     }
 
@@ -48,21 +44,17 @@ public class ParkingBusiness {
         parking.setDvteParqueadero(parkingDto.getDvteParqueadero());
         parking.setCupParqueadero(parkingDto.getCupParqueadero());
         parking.setHoraSalida(parkingDto.getHoraSalida());
-        parking.setCostParqueadero(calcularCostoParqueadero(parkingDto));
+
+        // Calcular y asignar el costo del parqueadero
+        int costParqueadero = calcularCostoParqueadero(parkingDto.getTipoParqueadero(), parkingDto.getHoraSalida());
+        parking.setCostParqueadero(costParqueadero);
 
         Parking createdParking = parkingService.create(parking);
 
-        ParkingDto createdParkingDto = new ParkingDto();
-        createdParkingDto.setId(createdParking.getId());
-        createdParkingDto.setTipoParqueadero(createdParking.getTipoParqueadero());
-        createdParkingDto.setEstadoParqueadero(createdParking.getEstadoParqueadero());
-        createdParkingDto.setFecParqueadero(createdParking.getFecParqueadero());
-        createdParkingDto.setDvteParqueadero(createdParking.getDvteParqueadero());
-        createdParkingDto.setCupParqueadero(createdParking.getCupParqueadero());
-        createdParkingDto.setHoraSalida(createdParking.getHoraSalida());
-        createdParkingDto.setCostParqueadero(createdParking.getCostParqueadero());
+        parkingDto.setId(createdParking.getId());
+        parkingDto.setCostParqueadero(costParqueadero);
 
-        return createdParkingDto;
+        return parkingDto;
     }
 
     public void update(ParkingDto parkingDto, int id) throws Exception {
@@ -77,7 +69,10 @@ public class ParkingBusiness {
         existingParking.setDvteParqueadero(parkingDto.getDvteParqueadero());
         existingParking.setCupParqueadero(parkingDto.getCupParqueadero());
         existingParking.setHoraSalida(parkingDto.getHoraSalida());
-        existingParking.setCostParqueadero(calcularCostoParqueadero(parkingDto));
+
+        // Calcular y asignar el costo del parqueadero
+        int costParqueadero = calcularCostoParqueadero(parkingDto.getTipoParqueadero(), parkingDto.getHoraSalida());
+        existingParking.setCostParqueadero(costParqueadero);
 
         parkingService.update(existingParking);
     }
@@ -91,24 +86,24 @@ public class ParkingBusiness {
         parkingService.delete(existingParking);
     }
 
-    private int calcularCostoParqueadero(ParkingDto parkingDto) {
-        String tipoParqueadero = parkingDto.getTipoParqueadero().toLowerCase();
-        String estadoParqueadero = parkingDto.getEstadoParqueadero().toLowerCase();
-        Date horaSalidaDate = parkingDto.getHoraSalida(); // Obtener Date
+    private int calcularCostoParqueadero(String tipoParqueadero, Date horaSalida) {
+        if (tipoParqueadero == null) {
+            return 0; // Manejar caso inválido
+        }
 
-        // Convertir Date a LocalDateTime
-        LocalDateTime horaSalidaDateTime = horaSalidaDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        // Convertir Date a LocalTime
+        LocalTime horaSalidaTime = horaSalida != null ?
+                horaSalida.toInstant().atZone(ZoneId.systemDefault()).toLocalTime() :
+                null;
 
-        // Obtener LocalTime de LocalDateTime
-        LocalTime horaSalida = horaSalidaDateTime.toLocalTime();
-
-        if ("carro propietario".equals(tipoParqueadero)) {
-            return 50000; // Costo mensual
-        } else if ("moto propietario".equals(tipoParqueadero)) {
-            return 36000; // Costo mensual
-        } else if ("carro visitante".equals(tipoParqueadero) || "moto visitante".equals(tipoParqueadero)) {
+        if ("carro-propietario".equalsIgnoreCase(tipoParqueadero)) {
+            return 50000; // Costo mensual para carro propietario
+        } else if ("moto-propietario".equalsIgnoreCase(tipoParqueadero)) {
+            return 36000; // Costo mensual para moto propietario
+        } else if ("carro-visitante".equalsIgnoreCase(tipoParqueadero) ||
+                "moto-visitante".equalsIgnoreCase(tipoParqueadero)) {
             // Calcular costo según la hora de salida
-            if (horaSalida.isAfter(LocalTime.of(18, 0)) || horaSalida.isBefore(LocalTime.of(6, 0))) {
+            if (horaSalidaTime != null && (horaSalidaTime.isAfter(LocalTime.of(18, 0)) || horaSalidaTime.isBefore(LocalTime.of(6, 0)))) {
                 return 6000; // Tarifa nocturna
             } else {
                 return 4000; // Tarifa diurna

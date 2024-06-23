@@ -33,9 +33,17 @@ public class ParkingController {
     public ResponseEntity<Map<String, Object>> createParking(@RequestBody ParkingDto parkingDto) {
         Map<String, Object> res = new HashMap<>();
         try {
-            ParkingDto createdParkingDto = parkingBusiness.create(parkingDto);
+            if (parkingDto.getEstadoParqueadero().equals("inhabilitado")) {
+                // if parking status is inhabilitado, allow horaSalida to be null
+                parkingBusiness.create(parkingDto);
+            } else {
+                if (parkingDto.getHoraSalida() == null) {
+                    throw new RuntimeException("Hora de salida is required for enabled parkings");
+                }
+                parkingBusiness.create(parkingDto);
+            }
             res.put("status", "success");
-            res.put("data", createdParkingDto);
+            res.put("data", parkingDto);
             return new ResponseEntity<>(res, HttpStatus.CREATED);
         } catch (Exception e) {
             res.put("status", "error");
