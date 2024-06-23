@@ -18,7 +18,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping(path = "/api/resident", method = {RequestMethod.GET,RequestMethod.PUT,RequestMethod.POST} )
-@CrossOrigin("*")
+@CrossOrigin(origins = {"http://localhost:3000", "https://f965-2800-e6-1010-8eb4-2915-39ac-f6f7-beff.ngrok-free.app"})
 public class ResidentController {
     @Autowired
     private ResidentBusiness residentBusiness;

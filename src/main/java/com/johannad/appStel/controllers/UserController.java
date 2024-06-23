@@ -13,11 +13,12 @@ import java.util.Map;
 
 @RestController
 @RequestMapping(path = "/api/user", method = {RequestMethod.GET, RequestMethod.PUT, RequestMethod.POST})
-@CrossOrigin("*")
+@CrossOrigin(origins = {"http://localhost:3000", "https://f965-2800-e6-1010-8eb4-2915-39ac-f6f7-beff.ngrok-free.app"})
 public class UserController {
 
     @Autowired
     private UserBusiness userBusiness;
+    //@CrossOrigin(origins = {"http://localhost:3000", "https://3f0e-186-30-9-175.ngrok-free.app"})
     @GetMapping("/all")
     public ResponseEntity<Map<String, Object>> findAllUser() {
         Map<String, Object> res = new HashMap<>();
