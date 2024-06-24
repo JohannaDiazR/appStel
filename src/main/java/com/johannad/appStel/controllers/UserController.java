@@ -22,9 +22,18 @@ public class UserController {
 
 
     @GetMapping("/all")
-    public String redirectToLoginPage() {
-        // Redirigir a la página de login de React
-        return "redirect:http://localhost:8085/api/user/all";
+    public ResponseEntity<Map<String, Object>> findAllUser() {
+        Map<String, Object> res = new HashMap<>();
+        try {
+            List<UserDto> listUserDto = this.userBusiness.findAll();
+            res.put("status", "success");
+            res.put("data", listUserDto);
+            return new ResponseEntity<>(res, HttpStatus.OK);
+        } catch (Exception e) {
+            res.put("status", "error");
+            res.put("message", e.getMessage());
+            return new ResponseEntity<>(res, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
     @PostMapping("/create")
     public ResponseEntity<Map<String, Object>> createUser(@RequestBody UserDto userDto) {
