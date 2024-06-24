@@ -13,12 +13,17 @@ import java.util.Map;
 
 @RestController
 @RequestMapping(path = "/api/user", method = {RequestMethod.GET, RequestMethod.PUT, RequestMethod.POST})
-@CrossOrigin(origins = {"http://localhost:3000", "https://f965-2800-e6-1010-8eb4-2915-39ac-f6f7-beff.ngrok-free.app"})
+//@CrossOrigin(origins = {"http://localhost:3000", "https://f965-2800-e6-1010-8eb4-2915-39ac-f6f7-beff.ngrok-free.app"})
+@CrossOrigin("*")
 public class UserController {
 
     @Autowired
     private UserBusiness userBusiness;
-    //@CrossOrigin(origins = {"http://localhost:3000", "https://3f0e-186-30-9-175.ngrok-free.app"})
+    public String redirectToLoginPage() {
+        // Redirigir a la página de login de React
+        return "redirect:http://localhost:3000/ingresar";
+    }
+
     @GetMapping("/all")
     public ResponseEntity<Map<String, Object>> findAllUser() {
         Map<String, Object> res = new HashMap<>();
