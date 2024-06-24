@@ -24,7 +24,7 @@ public class UserController {
     @GetMapping("/all")
     public String redirectToLoginPage() {
         // Redirigir a la página de login de React
-        return "redirect:http://localhost:3000/ingresar";
+        return "redirect:http://localhost:8085/api/user/all";
     }
     @PostMapping("/create")
     public ResponseEntity<Map<String, Object>> createUser(@RequestBody UserDto userDto) {
