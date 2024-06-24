@@ -51,8 +51,4 @@ public class Parking implements Serializable{
     private List<Visitor> visitorList;
 
 
-    @JsonManagedReference
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fkid_rate")
-    private Rate rate;
 }
